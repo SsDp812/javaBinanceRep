@@ -1,0 +1,47 @@
+<!doctype html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Exchange</title>
+    <meta name="description" content="Exchange">
+    <meta name="author" content="-">
+    <meta property="og:title" content="Exchange">
+    <link th:href="@{/cssandjs/dop.css}" rel="stylesheet" />
+</head>
+
+
+
+
+
+</head>
+
+<body>
+<div class="MainBox">
+    <header class="headerDiv">
+        <section class="sec"><a class="aSec" href="http://localhost:8080/mainPage">Traiding</a></section>
+        <section class="sec"><a class="aSec" href="http://localhost:8080/balance">Balance</a></section>
+        <section class="sec"><a class="aSec" href="http://localhost:8080/historyPage">History</a></section>
+        <section class="sec"><a class="aSec" href="#">About</a></section>
+        <section class="sec"><a class="aSec" href="#">Help</a></section>
+    </header>
+
+
+    <div class="tableBox">
+        <table class="table">
+            <caption>Trades History</caption>
+            <tr>
+                <th>Coin1</th>
+                <th>Coin2</th>
+                <th>Course</th>
+                <th>Coin1 Balance</th>
+                <th>Coin2 Balance</th>
+            </tr>
+        </table>
+    </div>
+</div>
+<script type="text/javascript" th:src="@{/cssandjs/history.js}"></script>
+</body>
+</html>
