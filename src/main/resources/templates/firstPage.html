@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link th:href="@{/cssandjs/main.css}" rel="stylesheet" />
+  <link th:href="@{/cssandjs/slider.css}" rel="stylesheet" />
+  <title>Document</title>
+</head>
+<body>
+<div class="MainBox">
+  <header class="headerDiv">
+    <section class="sec"><a class="aSec" href="http://localhost:8080/firstPage">MAIN</a></section>
+    <section class="sec"><a class="aSec" href="http://localhost:8080/mainPage">Traiding</a></section>
+    <section class="sec"><a class="aSec" href="http://localhost:8080/balance">Balance</a></section>
+    <section class="sec"><a class="aSec" href="http://localhost:8080/historyPage">History</a></section>
+    <section class="sec"><a class="aSec" href="http://localhost:8080/Advices">Advices</a></section>
+  </header>
+  <div class="itc-slider" data-slider="itc-slider" data-autoplay="true" data-interval="7000">
+
+    <div class="itc-slider__wrapper">
+
+      <div class="itc-slider__items">
+
+        <div class="itc-slider__item">
+
+          <div class="contentitem" >
+
+            <img class="imgCl" th:src="@{/cssandjs/ph11.jpeg}">
+
+          </div>
+
+        </div>
+        <div class="itc-slider__item">
+
+          <div class="contentitem" >
+
+            <img class="imgCl" th:src="@{/cssandjs/ph22.jpeg}">
+
+          </div>
+
+        </div>
+        <div class="itc-slider__item">
+
+          <div class="contentitem" >
+
+            <img class="imgCl" th:src="@{/cssandjs/ph33.jpeg}">
+
+          </div>
+
+        </div>
+
+
+
+      </div>
+
+    </div>
+
+    <button class="itc-slider__btn itc-slider__btn_prev"></button>
+    <button class="itc-slider__btn itc-slider__btn_next"></button>
+
+  </div>
+
+
+</div>
+
+
+
+</div>
+
+
+</body>
+
+<script type="text/javascript" th:src="@{/cssandjs/slider.js}"></script>
+</html>
