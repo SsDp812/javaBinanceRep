@@ -43,7 +43,7 @@ public class Coin {
         this.balance = balance;
     }
 
-    public void replenishment(double numberOfCoins) {
+    public void add(double numberOfCoins) {
         if (0 > numberOfCoins) {
             throw new IllegalArgumentException("numberOfCoins cannot be less or equal to zero");
         }
@@ -51,7 +51,7 @@ public class Coin {
         balance += numberOfCoins;
     }
 
-    public void withdraw(double numberOfCoins) {
+    public void decrease(double numberOfCoins) {
         if (numberOfCoins > balance) {
             throw new IllegalArgumentException("numberOfCoins cannot be more than balance");
         }

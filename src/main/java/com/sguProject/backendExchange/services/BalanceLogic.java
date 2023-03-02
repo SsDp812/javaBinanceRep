@@ -3,9 +3,6 @@ package com.sguProject.backendExchange.services;
 import com.sguProject.backendExchange.models.Coin;
 import com.sguProject.backendExchange.models.Coin.CoinType;
 import com.sguProject.backendExchange.models.Transaction;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -37,8 +34,8 @@ public class BalanceLogic {
             throw new IllegalArgumentException("numberPurchased less than need salable coins for success trade");
         }
         Coin buyableCoin = dalanceDao.getCoin(buyable);
-        salableCoin.withdraw(number);
-        buyableCoin.replenishment(requiredBuyableCoins);
+        salableCoin.decrease(number);
+        buyableCoin.add(requiredBuyableCoins);
         dalanceDao.save(salableCoin);
         dalanceDao.save(buyableCoin);
         salableCoin.setBalance(number);
