@@ -3,11 +3,9 @@ package com.sguProject.backendExchange.controllers;
 import com.sguProject.backendExchange.models.Balance;
 import com.sguProject.backendExchange.services.interfaces.BalanceService;
 import com.sguProject.backendExchange.services.interfaces.CurrencyService;
+import org.hibernate.cfg.NotYetImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -41,5 +39,11 @@ public class BalanceController {
     @GetMapping("/getBalanceAll")
     public List<Balance> getAllBalances() {
         return balanceService.getAll();
+    }
+
+    @CrossOrigin(origins = "http://127.0.0.1:5500")
+    @GetMapping("/getBalance/{coin}")
+    public double getBalance(@PathVariable String coin){
+        throw new NotYetImplementedException(); // TODO: Добавить возвращение баланса текущего аккаунта
     }
 }
