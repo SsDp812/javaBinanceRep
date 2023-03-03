@@ -10,7 +10,9 @@ import java.util.Optional;
 public interface BalanceService {
     void create(Account owner, Currency currency);
 
-    List<BalanceService> getAllByOwner(Account owner);
+    List<Balance> getAll();
+
+    List<Balance> getAllByOwner(Account owner);
 
     Optional<Balance> findBy(Account owner, Currency currency);
 
