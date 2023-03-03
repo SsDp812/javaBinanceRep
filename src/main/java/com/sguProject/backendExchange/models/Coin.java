@@ -18,11 +18,11 @@ public class Coin {
     private long id;
 
     @NotNull
+    @Enumerated(EnumType.STRING)
     @Column(name = "type")
     private CoinType type;
 
     @Column(name = "balance")
-    @Enumerated(EnumType.STRING)
     @Min(value = 0, message = "Message should not be less than 0")
     private double balance;
 
