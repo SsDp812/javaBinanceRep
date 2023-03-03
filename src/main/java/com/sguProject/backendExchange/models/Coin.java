@@ -79,4 +79,22 @@ public class Coin {
     public String toString() {
         return type.name() + " " + balance;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Coin coin = (Coin) o;
+
+        if (id != coin.id) return false;
+        return type == coin.type;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (type != null ? type.hashCode() : 0);
+        return result;
+    }
 }
