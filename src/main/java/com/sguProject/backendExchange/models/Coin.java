@@ -1,20 +1,36 @@
 package com.sguProject.backendExchange.models;
 
+import com.sun.istack.NotNull;
+
+import javax.persistence.*;
+import javax.validation.constraints.Min;
+
+@Entity
+@Table(name = "Coin")
 public class Coin {
     public enum CoinType {
         None, BTC, ETH, BNB, USDT, XRP, LTC, BCH;
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private long id;
+
+    @NotNull
+    @Column(name = "type")
     private CoinType type;
+
+    @Column(name = "balance")
+    @Enumerated(EnumType.STRING)
+    @Min(value = 0, message = "Message should not be less than 0")
     private double balance;
+
+    public Coin() { }
 
     public Coin(CoinType type, double balance) {
         setType(type);
         setBalance(balance);
-    }
-
-    public Coin() {
-        this(CoinType.BTC, 0);
     }
 
     public CoinType getType() {
@@ -25,7 +41,7 @@ public class Coin {
         return balance;
     }
 
-    public String getName() { return type.toString(); }
+    public String getName() { return type.name(); }
 
     public void setType(CoinType type) {
         if (type == CoinType.None) {
