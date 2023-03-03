@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class buyController {
+public class BalanceController {
 
     private final BalanceService balanceService;
     private final CurrencyService currencyService;
 
     @Autowired
-    public buyController(BalanceService balanceService, CurrencyService currencyService) {
+    public BalanceController(BalanceService balanceService, CurrencyService currencyService) {
         this.balanceService = balanceService;
         this.currencyService = currencyService;
     }
@@ -26,5 +26,13 @@ public class buyController {
                     @RequestParam("coin2") String salableTicker,
                     @RequestParam("number") double number) {
         balanceService.buyCurrency(buyableTicker, salableTicker, number);
+    }
+
+    @CrossOrigin(origins = "http://127.0.0.1:5500")
+    @GetMapping("/sell")
+    public void sell(@RequestParam("coin1") String salableTicker,
+                     @RequestParam("coin2") String buyableTicker,
+                     @RequestParam("number") double number) {
+        balanceService.sellCurrency(salableTicker, buyableTicker, number);
     }
 }

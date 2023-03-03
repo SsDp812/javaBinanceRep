@@ -14,9 +14,9 @@ public interface BalanceService {
 
     Optional<Balance> findBy(Account owner, Currency currency);
 
-    void saleCurrency(Currency salable, Currency buyable, double sale);
+    void sellCurrency(Currency salable, Currency buyable, double sell);
 
-    void saleCurrency(String salableTicker, String buyableTicker, double sale);
+    void sellCurrency(String salableTicker, String buyableTicker, double sell);
 
     void buyCurrency(Currency buyable, Currency salable, double buy);
 
