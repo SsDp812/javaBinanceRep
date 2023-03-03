@@ -27,7 +27,7 @@ public class Coin {
     private double balance;
 
     @ManyToOne
-    @JoinColumn(name = "owner_id")
+    @JoinColumn(name = "owner_id", referencedColumnName = "id")
     private Account owner;
 
     public Coin() { }
