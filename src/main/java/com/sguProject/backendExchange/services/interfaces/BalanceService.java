@@ -1,0 +1,16 @@
+package com.sguProject.backendExchange.services.interfaces;
+
+import com.sguProject.backendExchange.models.Account;
+import com.sguProject.backendExchange.models.Balance;
+import com.sguProject.backendExchange.models.Currency;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface BalanceService {
+    void create(Account owner, Currency currency);
+
+    List<BalanceService> getAllByOwner(Account owner);
+
+    Optional<Balance> findBy(Account owner, Currency currency);
+}
