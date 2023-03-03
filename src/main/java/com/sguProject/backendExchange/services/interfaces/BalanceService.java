@@ -13,4 +13,8 @@ public interface BalanceService {
     List<BalanceService> getAllByOwner(Account owner);
 
     Optional<Balance> findBy(Account owner, Currency currency);
+
+    void saleCurrency(Currency salable, Currency buyable, double sale);
+
+    void buyCurrency(Currency buyable, Currency salable, double buy);
 }
