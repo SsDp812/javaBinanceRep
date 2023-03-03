@@ -10,7 +10,7 @@ public interface CurrencyService {
 
     List<Currency> getAllCurrencies();
 
-    Optional<Currency> getCurrencyByTicker(String ticker);
+    Optional<Currency> findByTicker(String ticker);
 
-    Optional<Currency> getCurrencyByName(String name);
+    Optional<Currency> findByName(String name);
 }
