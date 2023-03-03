@@ -1,7 +1,7 @@
 package com.sguProject.backendExchange.models;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "Account")
@@ -13,7 +13,7 @@ public class Account {
     private int id;
 
     @OneToMany(mappedBy = "owner")
-    private Set<Coin> balances;
+    private List<Balance> balances;
 
     public Account() { }
 
@@ -25,11 +25,11 @@ public class Account {
         this.id = id;
     }
 
-    public Set<Coin> getBalances() {
+    public List<Balance> getBalances() {
         return balances;
     }
 
-    public void setBalances(Set<Coin> balances) {
+    public void setBalances(List<Balance> balances) {
         this.balances = balances;
     }
 }
