@@ -16,5 +16,9 @@ public interface BalanceService {
 
     void saleCurrency(Currency salable, Currency buyable, double sale);
 
+    void saleCurrency(String salableTicker, String buyableTicker, double sale);
+
     void buyCurrency(Currency buyable, Currency salable, double buy);
+
+    void buyCurrency(String buyableTicker, String salableTicker, double buy);
 }
