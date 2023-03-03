@@ -26,6 +26,10 @@ public class Coin {
     @Min(value = 0, message = "Message should not be less than 0")
     private double balance;
 
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
+    private Account owner;
+
     public Coin() { }
 
     public Coin(CoinType type, double balance) {

@@ -1,15 +1,35 @@
 package com.sguProject.backendExchange.models;
 
-import java.util.HashMap;
+import javax.persistence.*;
+import java.util.Set;
 
+@Entity
+@Table(name = "Account")
 public class Account {
-    private int id;
-    private int user_id;
-    private HashMap<String, Double> balance;
 
-    public Account(int id, int user_id) {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
+
+    @OneToMany(mappedBy = "owner")
+    private Set<Coin> balances;
+
+    public Account() { }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
         this.id = id;
-        this.user_id = user_id;
-        balance = new HashMap<>();
+    }
+
+    public Set<Coin> getBalances() {
+        return balances;
+    }
+
+    public void setBalances(Set<Coin> balances) {
+        this.balances = balances;
     }
 }
