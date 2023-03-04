@@ -21,6 +21,7 @@ public class CurrencyServiceImpl implements CurrencyService {
         this.currencyRepository = currencyRepository;
     }
 
+    @Transactional
     @Override
     public void create(Currency currency) {
         currencyRepository.save(currency);
