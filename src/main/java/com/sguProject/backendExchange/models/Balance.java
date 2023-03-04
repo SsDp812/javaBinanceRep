@@ -25,6 +25,14 @@ public class Balance {
     @JoinColumn(name = "owner_id", referencedColumnName = "id")
     private Account owner;
 
+    public Balance() {}
+
+    public Balance(Currency currency, Account owner, double amount) {
+        setCurrency(currency);
+        setOwner(owner);
+        setAmount(amount);
+    }
+
     public int getId() {
         return id;
     }
