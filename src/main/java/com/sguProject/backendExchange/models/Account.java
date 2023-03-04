@@ -1,6 +1,7 @@
 package com.sguProject.backendExchange.models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -31,5 +32,12 @@ public class Account {
 
     public void setBalances(List<Balance> balances) {
         this.balances = balances;
+    }
+
+    public void add(Balance balance) {
+        if (balances == null)
+            balances = new ArrayList<>();
+
+        balances.add(balance);
     }
 }
