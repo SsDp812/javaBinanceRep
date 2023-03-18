@@ -64,4 +64,20 @@ public class Balance {
     public void setOwner(Account owner) {
         this.owner = owner;
     }
+
+    public void withdraw(double amount) {
+        if (amount <= 0)
+            throw new IllegalArgumentException("Withdraw amount should be greater than 0");
+        if (this.amount < amount)
+            throw new IllegalArgumentException("Withdraw amount is less than current amount");
+
+        this.amount -= amount;
+    }
+
+    public void deposit(double amount) {
+        if (amount <= 0)
+            throw new IllegalArgumentException("Deposit amount should be greater than 0");
+
+        this.amount += amount;
+    }
 }
