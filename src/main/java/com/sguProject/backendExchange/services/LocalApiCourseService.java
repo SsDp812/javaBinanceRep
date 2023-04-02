@@ -2,8 +2,10 @@ package com.sguProject.backendExchange.services;
 
 import com.sguProject.backendExchange.models.Currency;
 import com.sguProject.backendExchange.services.interfaces.CourseService;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+@Service
 public class LocalApiCourseService implements CourseService {
     private final static String BASE_URL = "http://localhost:3004/price?symbol=";
 
