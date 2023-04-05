@@ -29,7 +29,7 @@ public class Transaction {
     private Account buyer;
 
     @ManyToOne
-    @JoinColumn(name = "purchased_id", referencedColumnName = "id")
+    @JoinColumn(name = "purchased_ticker", referencedColumnName = "ticker")
     private Currency purchasedCurrency;
 
     @Positive
@@ -37,7 +37,7 @@ public class Transaction {
     private double purchasedAmount;
 
     @ManyToOne
-    @JoinColumn(name = "sold_id", referencedColumnName = "id")
+    @JoinColumn(name = "sold_ticker", referencedColumnName = "ticker")
     private Currency soldCurrency;
 
     @Positive
