@@ -5,7 +5,7 @@ import javax.validation.constraints.PositiveOrZero;
 
 @Entity
 @Table(name = "Balance",
-        uniqueConstraints = { @UniqueConstraint(columnNames = { "owner_id", "currency_id" }) })
+        uniqueConstraints = { @UniqueConstraint(columnNames = { "owner_id", "currency_ticker" }) })
 public class Balance {
 
     @Id
@@ -14,7 +14,7 @@ public class Balance {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "currency_id", referencedColumnName = "id")
+    @JoinColumn(name = "currency_ticker", referencedColumnName = "ticker")
     private Currency currency;
 
     @PositiveOrZero(message = "Amount should be positive or zero")
