@@ -18,5 +18,5 @@ public interface BalanceService {
 
     void sellCurrency(Account owner, Currency salable, Currency buyable, double saleAmount);
 
-    void buyCurrency(Account owner, Currency buyable, Currency salable, double buyAmount)
+    void buyCurrency(Account owner, Currency buyable, Currency salable, double buyAmount);
 }
