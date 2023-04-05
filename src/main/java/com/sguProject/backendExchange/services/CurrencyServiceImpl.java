@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -35,6 +36,12 @@ public class CurrencyServiceImpl implements CurrencyService {
     @Override
     public Optional<Currency> findByTicker(String ticker) {
         return currencyRepository.findByTicker(ticker);
+    }
+
+    @Override
+    public Currency getByTicker(String ticker) {
+        return currencyRepository.findByTicker(ticker)
+                .orElseThrow(NoSuchElementException::new);
     }
 
     @Override
