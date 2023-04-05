@@ -10,5 +10,9 @@ public interface AccountService extends UserDetailsService {
 
     Optional<Account> findById(int id);
 
+    Account getById(int id);
+
+    Optional<Account> findByUsername(String username);
+
     Account getBankAccount();
 }
