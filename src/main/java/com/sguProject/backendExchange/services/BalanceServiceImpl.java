@@ -40,7 +40,7 @@ public class BalanceServiceImpl implements BalanceService {
     public void create(Account owner, Currency currency) {
         Balance balance = new Balance(currency, owner, INITIAL_BALANCE_AMOUNT);
 
-        owner.add(balance);
+        owner.addBalance(balance);
     }
 
     @Override
