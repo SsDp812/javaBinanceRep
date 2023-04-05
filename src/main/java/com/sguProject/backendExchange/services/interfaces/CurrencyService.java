@@ -12,5 +12,7 @@ public interface CurrencyService {
 
     Optional<Currency> findByTicker(String ticker);
 
+    Currency getByTicker(String ticker);
+
     Optional<Currency> findByName(String name);
 }
