@@ -1,6 +1,7 @@
 package com.sguProject.backendExchange.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,14 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
+
+    @NotEmpty(message = "Username should not be empty")
+    @Column(name = "username", nullable = false, unique = true)
+    private String username;
+
+    @NotEmpty(message = "Password should not be empty")
+    @Column(name = "password", nullable = false)
+    private String password;
 
     @OneToMany(mappedBy = "owner")
     private List<Balance> balances;
@@ -34,7 +43,23 @@ public class Account {
         this.balances = balances;
     }
 
-    public void add(Balance balance) {
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void addBalance(Balance balance) {
         if (balances == null)
             balances = new ArrayList<>();
 
