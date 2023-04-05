@@ -3,31 +3,28 @@ package com.sguProject.backendExchange.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "Currency")
 public class Currency { // None, BTC, ETH, BNB, USDT, XRP, LTC, BCH;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
-
     @NotEmpty(message = "Ticker should not be empty")
-    @Column(name = "ticker")
+    @Column(name = "ticker", nullable = false, unique = true)
     private String ticker;
 
     @NotEmpty(message = "Name should not be empty")
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+    @ManyToMany
+    @JoinTable(
+            name = "Currency_Exchangeable",
+            joinColumns = @JoinColumn(name = "currency_ticker"),
+            inverseJoinColumns = @JoinColumn(name = "exchangeable_ticker")
+    )
+    private Set<Currency> exchangeables;
 
     public String getTicker() {
         return ticker;
@@ -45,6 +42,14 @@ public class Currency { // None, BTC, ETH, BNB, USDT, XRP, LTC, BCH;
         this.name = name;
     }
 
+    public Set<Currency> getExchangeables() {
+        return exchangeables;
+    }
+
+    public void setExchangeables(Set<Currency> exchangeables) {
+        this.exchangeables = exchangeables;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -52,16 +57,16 @@ public class Currency { // None, BTC, ETH, BNB, USDT, XRP, LTC, BCH;
 
         Currency currency = (Currency) o;
 
-        if (id != currency.id) return false;
         if (!Objects.equals(ticker, currency.ticker)) return false;
-        return Objects.equals(name, currency.name);
+        if (!Objects.equals(name, currency.name)) return false;
+        return Objects.equals(exchangeables, currency.exchangeables);
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (ticker != null ? ticker.hashCode() : 0);
+        int result = ticker != null ? ticker.hashCode() : 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (exchangeables != null ? exchangeables.hashCode() : 0);
         return result;
     }
 }
