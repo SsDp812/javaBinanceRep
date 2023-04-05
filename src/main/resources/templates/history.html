@@ -32,16 +32,33 @@
     <div class="tableBox">
         <table class="table"   border="8" cellpadding="5" style="border-collapse: collapse; border: 6px solid #FFAC3E;">
             <caption>Trades History</caption>
+            <thead>
             <tr>
-                <th>Coin1</th>
-                <th>Coin2</th>
-                <th>Course</th>
-                <th>Coin1 Balance</th>
-                <th>Coin2 Balance</th>
+                <th> Date </th>
+                <th> Seller </th>
+                <th> Buyer </th>
+                <th> Purchased </th>
+                <th> Amount </th>
+                <th> Sold </th>
+                <th> Amount </th>
             </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${transactions.isEmpty()}">
+                <td colspan="2"> No Books Available </td>
+            </tr>
+            <tr th:each="transaction : ${transactions}">
+                <td><span th:text="${transaction.getCreatedAt()}"> Date </span></td>
+                <td><span th:text="${transaction.getSeller().getUsername()}"> Seller </span></td>
+                <td><span th:text="${transaction.getBuyer().getUsername()}"> Buyer </span></td>
+                <td><span th:text="${transaction.getPurchasedCurrency().getTicker()}"> Purchased </span></td>
+                <td><span th:text="${transaction.getPurchasedAmount()}"> Amount </span></td>
+                <td><span th:text="${transaction.getSoldCurrency().getTicker()}"> Sold </span></td>
+                <td><span th:text="${transaction.getSoldAmount()}"> Amount </span></td>
+            </tr>
+            </tbody>
         </table>
     </div>
 </div>
-<script type="text/javascript" th:src="@{/cssandjs/history.js}"></script>
 </body>
 </html>
