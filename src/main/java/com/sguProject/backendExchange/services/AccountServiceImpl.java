@@ -1,9 +1,12 @@
 package com.sguProject.backendExchange.services;
 
 import com.sguProject.backendExchange.models.Account;
+import com.sguProject.backendExchange.models.Currency;
 import com.sguProject.backendExchange.repositories.AccountRepository;
 import com.sguProject.backendExchange.security.AccountDetails;
 import com.sguProject.backendExchange.services.interfaces.AccountService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,8 +25,8 @@ public class AccountServiceImpl implements AccountService, UserDetailsService {
     }
 
     @Override
-    public void create(Account account) {
-        accountRepository.save(account);
+    public Account create(Account account) {
+        return accountRepository.save(account);
     }
 
     @Override
@@ -43,9 +46,11 @@ public class AccountServiceImpl implements AccountService, UserDetailsService {
     }
 
     @Override
-    public Account getBankAccount() {
-        return accountRepository.findByUsername("JavaBinance")
-                .orElseThrow(NoSuchElementException::new);
+    public Account getAccountCurrentSession() {
+        final Authentication auth= SecurityContextHolder.getContext().getAuthentication();
+        final AccountDetails accountDetails = (AccountDetails) auth.getPrincipal();
+
+        return accountDetails.getAccount();
     }
 
     @Override
