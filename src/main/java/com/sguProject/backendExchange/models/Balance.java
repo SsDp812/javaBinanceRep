@@ -2,6 +2,7 @@ package com.sguProject.backendExchange.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.PositiveOrZero;
+import java.util.Objects;
 
 @Entity
 @Table(name = "Balance",
@@ -79,5 +80,30 @@ public class Balance {
             throw new IllegalArgumentException("Deposit amount should be greater than 0");
 
         this.amount += amount;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Balance balance = (Balance) o;
+
+        if (id != balance.id) return false;
+        if (Double.compare(balance.amount, amount) != 0) return false;
+        if (!Objects.equals(currency, balance.currency)) return false;
+        return Objects.equals(owner, balance.owner);
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = id;
+        result = 31 * result + (currency != null ? currency.hashCode() : 0);
+        temp = Double.doubleToLongBits(amount);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (owner != null ? owner.hashCode() : 0);
+        return result;
     }
 }
