@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import java.util.Optional;
 
 public interface AccountService extends UserDetailsService {
-    void create(Account account);
+    Account create(Account account);
 
     Optional<Account> findById(int id);
 
@@ -14,5 +14,5 @@ public interface AccountService extends UserDetailsService {
 
     Optional<Account> findByUsername(String username);
 
-    Account getBankAccount();
+    Account getAccountCurrentSession();
 }
