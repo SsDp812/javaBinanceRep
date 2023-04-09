@@ -12,49 +12,32 @@
     <link th:href="@{/cssandjs/main.css}" rel="stylesheet" />
 </head>
 
-
-
-
-
-</head>
-
 <body>
 <div class="MainBox">
-    <header class="headerDiv">
-        <section class="sec"><a class="aSec" href="http://localhost:8080/firstPage">MAIN</a></section>
-        <section class="sec"><a class="aSec" href="http://localhost:8080/mainPage">Traiding</a></section>
-        <section class="sec"><a class="aSec" href="http://localhost:8080/balance">Balance</a></section>
-        <section class="sec"><a class="aSec" href="http://localhost:8080/historyPage">History</a></section>
-        <section class="sec"><a class="aSec" href="http://localhost:8080/Advices">Advices</a></section>
-    </header>
-
+    <div th:insert="menu :: copy"></div>
 
     <div class="tableBox">
         <table class="table"   border="8" cellpadding="5" style="border-collapse: collapse; border: 6px solid #FFAC3E;">
             <caption>Trades History</caption>
             <thead>
             <tr>
-                <th> Date </th>
-                <th> Seller </th>
-                <th> Buyer </th>
-                <th> Purchased </th>
-                <th> Amount </th>
-                <th> Sold </th>
-                <th> Amount </th>
+                <th> Time </th>
+                <th> Symbol </th>
+                <th> Operation </th>
+                <th> Course </th>
+                <th> Quantity </th>
             </tr>
             </thead>
             <tbody>
             <tr th:if="${transactions.isEmpty()}">
-                <td colspan="2"> No Books Available </td>
+                <td colspan="5"> No transactions available </td>
             </tr>
             <tr th:each="transaction : ${transactions}">
-                <td><span th:text="${transaction.getCreatedAt()}"> Date </span></td>
-                <td><span th:text="${transaction.getSeller().getUsername()}"> Seller </span></td>
-                <td><span th:text="${transaction.getBuyer().getUsername()}"> Buyer </span></td>
-                <td><span th:text="${transaction.getPurchasedCurrency().getTicker()}"> Purchased </span></td>
-                <td><span th:text="${transaction.getPurchasedAmount()}"> Amount </span></td>
-                <td><span th:text="${transaction.getSoldCurrency().getTicker()}"> Sold </span></td>
-                <td><span th:text="${transaction.getSoldAmount()}"> Amount </span></td>
+                <td><span th:text="${#temporals.format(transaction.getCreatedAt(), 'yyyy-MM-dd HH:mm:ss')}"> Time </span></td>
+                <td><span th:text="${transaction.getCurrencyPair()}"> Symbol </span></td>
+                <td><span th:text="${transaction.getOperation()}"> Operation </span></td>
+                <td><span th:text="${ transaction.getCourse() + ' ' + transaction.getCurrencyPair().getQuoted().getTicker()}"> Course </span></td>
+                <td><span th:text="${transaction.getQuantity() + ' ' + transaction.getCurrencyPair().getBase().getTicker()}"> Quantity </span></td>
             </tr>
             </tbody>
         </table>

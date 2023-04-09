@@ -15,25 +15,20 @@
 </head>
 <body>
 <div class="MainBox">
-  <header class="headerDiv">
-    <section class="sec"><a class="aSec" href="http://localhost:8080/firstPage">MAIN</a></section>
-    <section class="sec"><a class="aSec" href="http://localhost:8080/mainPage">Traiding</a></section>
-    <section class="sec"><a class="aSec" href="http://localhost:8080/balance">Balance</a></section>
-    <section class="sec"><a class="aSec" href="http://localhost:8080/historyPage">History</a></section>
-    <section class="sec"><a class="aSec" href="http://localhost:8080/Advices">Advices</a></section>
-  </header>
+  <div th:insert="menu :: copy"></div>
+
   <div class="adds">
     <div class="adv">
-      <a class="aADV" href="http://localhost:8080/Strategies">Strategies</a>
+      <a class="aADV" href="/advices/strategies">Strategies</a>
     </div>
     <div class="adv">
-      <a class="aADV" href="http://localhost:8080/Concepts">Concepts</a>
+      <a class="aADV" href="/advices/concepts">Concepts</a>
     </div>
     <div class="adv">
-      <a class="aADV" href="http://localhost:8080/Lessons">Lessons</a>
+      <a class="aADV" href="/advices/lessons">Lessons</a>
     </div>
     <div class="adv">
-      <a class="aADV" href="http://localhost:8080/Test">Test</a>
+      <a class="aADV" href="/advices/test">Test</a>
     </div>
   </div>
 

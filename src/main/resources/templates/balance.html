@@ -15,25 +15,29 @@
 </head>
 <body>
 <div class="MainBox">
-    <header class="headerDiv">
-        <section class="sec"><a class="aSec" href="http://localhost:8080/firstPage">MAIN</a></section>
-        <section class="sec"><a class="aSec" href="http://localhost:8080/mainPage">Traiding</a></section>
-        <section class="sec"><a class="aSec" href="http://localhost:8080/balance">Balance</a></section>
-        <section class="sec"><a class="aSec" href="http://localhost:8080/historyPage">History</a></section>
-        <section class="sec"><a class="aSec" href="http://localhost:8080/Advices">Advices</a></section>
-    </header>
+    <div th:insert="menu :: copy"></div>
 
     <div class="tableBox">
         <table class="table"   border="8" cellpadding="5" style="border-collapse: collapse; border: 6px solid #FFAC3E;">
             <caption>Account Balance</caption>
+            <thead>
             <tr>
-                <th>Coin</th>
+                <th>Currency</th>
                 <th>Value</th>
             </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${balances.isEmpty()}">
+                <td colspan="2"> No balances available </td>
+            </tr>
+            <tr th:each="balance : ${balances}">
+                <td><span th:text="${balance.getCurrency().getTicker()}"> Currency </span></td>
+                <td><span th:text="${balance.getAmount()}"> Amount </span></td>
+            </tr>
+            </tbody>
         </table>
     </div>
 
 </div>
-<script type="text/javascript" th:src="@{/cssandjs/balance.js}"></script>
 </body>
 </html>
