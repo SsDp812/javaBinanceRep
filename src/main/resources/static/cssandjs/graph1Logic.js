@@ -18,7 +18,7 @@ anychart.onDocumentReady(function () {
     })
 
     function updateBalance(coins){
-        fetch('http://localhost:8080/getBalance/' + coins[0], {
+        fetch('http://localhost:8080/api/balance/' + coins[0], {
             method : "GET",
             mode: 'cors',
             headers: {
@@ -33,7 +33,7 @@ anychart.onDocumentReady(function () {
             bal1.textContent = bal+ ' ' + coins[0];
         })
 
-        fetch('http://localhost:8080/getBalance/' + coins[1], {
+        fetch('http://localhost:8080/api/balance/' + coins[1], {
             method : "GET",
             mode: 'cors',
             headers: {
@@ -110,12 +110,9 @@ anychart.onDocumentReady(function () {
 
 
     function getPriceForlabel(pair){
-        fetch('http://localhost:3004/price?symbol='+pair, {
+        fetch('https://testnet.binance.vision/api/v3/ticker/price?symbol='+pair, {
             method : "GET",
-            mode: 'cors',
             headers: {
-                'Access-Control-Allow-Origin': 'http://localhost:3004',
-                Accept: 'application/json',
                 'Content-Type': 'application/json'
             }
           })
@@ -156,10 +153,9 @@ anychart.onDocumentReady(function () {
 
           let label = document.querySelector('.priceNumber1');
           console.log()
-          let count =  parseFloat(bal1.textContent)*number;
-          count = count.toFixed(11);
-          fetch('http://localhost:8080/buy?coin1=' + coins[0]+"&coin2="+coins[1]+"&number="+count, {
-              method : "GET",
+          let count =  parseFloat(bal2.textContent)*number;
+          fetch('http://localhost:8080/api/trading/sellQuoted?base='+coins[0] + '&quoted='+coins[1] + '&quantity='+count, {
+              method : "PUT",
               mode: 'cors',
               headers: {
                   'Access-Control-Allow-Origin': 'http://localhost:8080',
@@ -178,10 +174,9 @@ anychart.onDocumentReady(function () {
           let range = document.querySelector('.range1');
           let number = range.value / 100;
           let label = document.querySelector('.priceNumber1');
-          let count = parseFloat(bal2.textContent)*number;
-          count = count.toFixed(11);
-          fetch('http://localhost:8080/sell?coin1=' + coins[0]+"&coin2="+coins[1]+"&number="+count, {
-              method : "GET",
+          let count = parseFloat(bal1.textContent)*number;
+          fetch('http://localhost:8080/api/trading/sellBase?base='+coins[0] + '&quoted='+coins[1] + '&quantity='+count, {
+              method : "PUT",
               mode: 'cors',
               headers: {
                   'Access-Control-Allow-Origin': 'http://localhost:8080',
