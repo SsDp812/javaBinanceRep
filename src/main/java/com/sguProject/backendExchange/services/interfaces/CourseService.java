@@ -1,7 +1,7 @@
 package com.sguProject.backendExchange.services.interfaces;
 
-import com.sguProject.backendExchange.models.Currency;
+import com.sguProject.backendExchange.models.CurrencyPair;
 
 public interface CourseService {
-    double getCourse(Currency dividend, Currency divisor);
+    double getCourse(CurrencyPair currencyPair);
 }
