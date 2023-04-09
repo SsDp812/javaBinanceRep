@@ -1,13 +1,15 @@
 package com.sguProject.backendExchange.models;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "Currency")
-public class Currency { // None, BTC, ETH, BNB, USDT, XRP, LTC, BCH;
+public class Currency {
 
     @Id
     @NotEmpty(message = "Ticker should not be empty")
@@ -17,14 +19,6 @@ public class Currency { // None, BTC, ETH, BNB, USDT, XRP, LTC, BCH;
     @NotEmpty(message = "Name should not be empty")
     @Column(name = "name", nullable = false)
     private String name;
-
-    @ManyToMany
-    @JoinTable(
-            name = "Currency_Exchangeable",
-            joinColumns = @JoinColumn(name = "currency_ticker"),
-            inverseJoinColumns = @JoinColumn(name = "exchangeable_ticker")
-    )
-    private Set<Currency> exchangeables;
 
     public String getTicker() {
         return ticker;
@@ -42,14 +36,6 @@ public class Currency { // None, BTC, ETH, BNB, USDT, XRP, LTC, BCH;
         this.name = name;
     }
 
-    public Set<Currency> getExchangeables() {
-        return exchangeables;
-    }
-
-    public void setExchangeables(Set<Currency> exchangeables) {
-        this.exchangeables = exchangeables;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -58,15 +44,13 @@ public class Currency { // None, BTC, ETH, BNB, USDT, XRP, LTC, BCH;
         Currency currency = (Currency) o;
 
         if (!Objects.equals(ticker, currency.ticker)) return false;
-        if (!Objects.equals(name, currency.name)) return false;
-        return Objects.equals(exchangeables, currency.exchangeables);
+        return Objects.equals(name, currency.name);
     }
 
     @Override
     public int hashCode() {
         int result = ticker != null ? ticker.hashCode() : 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (exchangeables != null ? exchangeables.hashCode() : 0);
         return result;
     }
 }
