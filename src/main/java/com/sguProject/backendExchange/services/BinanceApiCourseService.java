@@ -10,7 +10,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 public class BinanceApiCourseService implements CourseService {
-    private final static String BASE_URL = "https://testnet.binance.vision/api/v3/ticker/price?symbol=";
+    private final static String BASE_URL = "https://api.binance.com/api/v3/ticker/price?symbol=";
 
     @Override
     public double getCourse(CurrencyPair currencyPair) {

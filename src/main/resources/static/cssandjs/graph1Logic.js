@@ -110,14 +110,16 @@ anychart.onDocumentReady(function () {
 
 
     function getPriceForlabel(pair){
-        fetch('https://testnet.binance.vision/api/v3/ticker/price?symbol='+pair, {
+        fetch('https://api.binance.com/api/v3/ticker/price?symbol='+pair, {
             method : "GET",
             headers: {
-                'Content-Type': 'application/json'
+                Accept: 'application/json;charset=UTF-8'
             }
           })
       .then(r => r.json())
       .then(price => {
+          console.log(price);
+          price = price['price'];
         let label = document.querySelector('.priceNumber1');
         let oldValue = parseFloat(label.textContent)
         label.textContent = price;
