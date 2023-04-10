@@ -9,15 +9,21 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @EnableWebSecurity
 public class SecurityConfig {
+    private static final String loginUrl = "/auth/login";
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().ignoringAntMatchers("/api/**")
                 .and()
                 .authorizeRequests()
-                .antMatchers("/login").permitAll()
+                .antMatchers(loginUrl, "/error").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin();
+                .formLogin()
+                .loginPage(loginUrl)
+                .loginProcessingUrl("/process_login")
+                .defaultSuccessUrl("/balance", false)
+                .failureUrl(loginUrl+"?error");
         return http.build();
     }
 
