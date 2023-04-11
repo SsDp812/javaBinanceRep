@@ -30,8 +30,8 @@ public class Balance {
 
     public Balance(Currency currency, Account owner, double amount) {
         setCurrency(currency);
-        setOwner(owner);
         setAmount(amount);
+        setOwner(owner);
     }
 
     public int getId() {
@@ -47,6 +47,9 @@ public class Balance {
     }
 
     public void setCurrency(Currency currency) {
+        if (owner == null)
+            throw new NullPointerException("currency should not be null");
+
         this.currency = currency;
     }
 
@@ -55,6 +58,9 @@ public class Balance {
     }
 
     public void setAmount(double amount) {
+        if (amount < 0)
+            throw new IllegalArgumentException("amount should not be less than 0");
+
         this.amount = amount;
     }
 
@@ -63,6 +69,10 @@ public class Balance {
     }
 
     public void setOwner(Account owner) {
+        if (owner == null)
+            throw new NullPointerException("owner should not be null");
+
+        owner.addBalance(this);
         this.owner = owner;
     }
 
