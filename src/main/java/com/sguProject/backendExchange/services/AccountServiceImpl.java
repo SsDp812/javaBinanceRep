@@ -25,7 +25,7 @@ public class AccountServiceImpl implements AccountService, UserDetailsService {
     }
 
     @Override
-    public Account create(Account account) {
+    public Account register(Account account) {
         return accountRepository.save(account);
     }
 
