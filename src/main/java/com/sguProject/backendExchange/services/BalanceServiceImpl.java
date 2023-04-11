@@ -4,7 +4,6 @@ import com.sguProject.backendExchange.models.Account;
 import com.sguProject.backendExchange.models.Balance;
 import com.sguProject.backendExchange.models.Currency;
 import com.sguProject.backendExchange.repositories.BalanceRepository;
-import com.sguProject.backendExchange.services.interfaces.AccountService;
 import com.sguProject.backendExchange.services.interfaces.BalanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,12 +23,9 @@ public class BalanceServiceImpl implements BalanceService {
 
     private final BalanceRepository balanceRepository;
 
-    private final AccountService accountService;
-
     @Autowired
-    public BalanceServiceImpl(BalanceRepository balanceRepository, AccountService accountService) {
+    public BalanceServiceImpl(BalanceRepository balanceRepository) {
         this.balanceRepository = balanceRepository;
-        this.accountService = accountService;
     }
 
     @Transactional
