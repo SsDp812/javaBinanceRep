@@ -47,7 +47,7 @@ public class Balance {
     }
 
     public void setCurrency(Currency currency) {
-        if (owner == null)
+        if (currency == null)
             throw new NullPointerException("currency should not be null");
 
         this.currency = currency;
