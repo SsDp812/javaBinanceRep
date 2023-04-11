@@ -12,7 +12,7 @@ import java.util.Optional;
 @Component
 public class AccountValidator implements Validator {
 
-    private AccountService accountService;
+    private final AccountService accountService;
 
     @Autowired
     public AccountValidator(AccountService accountService) {
