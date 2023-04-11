@@ -3,6 +3,7 @@ package com.sguProject.backendExchange.services;
 import com.sguProject.backendExchange.models.Account;
 import com.sguProject.backendExchange.models.Balance;
 import com.sguProject.backendExchange.models.Currency;
+import com.sguProject.backendExchange.repositories.AccountRepository;
 import com.sguProject.backendExchange.repositories.BalanceRepository;
 import com.sguProject.backendExchange.services.interfaces.BalanceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,15 +24,20 @@ public class BalanceServiceImpl implements BalanceService {
 
     private final BalanceRepository balanceRepository;
 
+    private final AccountRepository accountRepository;
+
     @Autowired
-    public BalanceServiceImpl(BalanceRepository balanceRepository) {
+    public BalanceServiceImpl(BalanceRepository balanceRepository, AccountRepository accountRepository) {
         this.balanceRepository = balanceRepository;
+        this.accountRepository = accountRepository;
     }
 
     @Transactional
     @Override
     public Balance create(Account owner, Currency currency) {
+        owner = accountRepository.save(owner);
         Balance balance = new Balance(currency, owner, INITIAL_BALANCE_AMOUNT);
+
         return balanceRepository.save(balance);
     }
 
