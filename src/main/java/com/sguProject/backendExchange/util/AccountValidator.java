@@ -31,6 +31,6 @@ public class AccountValidator implements Validator {
         Optional<Account> accountEqualsUsername = accountService.findByUsername(account.getUsername());
 
         if (accountEqualsUsername.isPresent())
-            errors.rejectValue("username", "Account with that username already exist");
+            errors.rejectValue("username", "","Account with that username already exist");
     }
 }
