@@ -3,8 +3,7 @@ package com.sguProject.backendExchange.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "Account")
@@ -24,8 +23,8 @@ public class Account {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @OneToMany(mappedBy = "owner")
-    private List<Balance> balances;
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+    private Set<Balance> balances;
 
     public Account() { }
 
@@ -35,14 +34,6 @@ public class Account {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public List<Balance> getBalances() {
-        return balances;
-    }
-
-    public void setBalances(List<Balance> balances) {
-        this.balances = balances;
     }
 
     public String getUsername() {
@@ -61,9 +52,17 @@ public class Account {
         this.password = password;
     }
 
+    public Set<Balance> getBalances() {
+        return balances;
+    }
+
+    public void setBalances(Set<Balance> balances) {
+        this.balances = balances;
+    }
+
     public void addBalance(Balance balance) {
         if (balances == null)
-            balances = new ArrayList<>();
+            balances = new HashSet<>();
 
         balances.add(balance);
     }
