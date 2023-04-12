@@ -5,13 +5,13 @@ import com.sguProject.backendExchange.models.Balance;
 import com.sguProject.backendExchange.repositories.AccountRepository;
 import com.sguProject.backendExchange.security.AccountDetails;
 import com.sguProject.backendExchange.services.interfaces.AccountService;
-import com.sguProject.backendExchange.services.interfaces.BalanceService;
 import com.sguProject.backendExchange.services.interfaces.CurrencyService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,21 +25,22 @@ public class AccountServiceImpl implements AccountService, UserDetailsService {
     private static final double INITIAL_BALANCE_AMOUNT = 30_000;
 
     private final AccountRepository accountRepository;
+    private final PasswordEncoder passwordEncoder;
+
     private final CurrencyService currencyService;
 
-    public AccountServiceImpl(AccountRepository accountRepository, CurrencyService currencyService) {
+    public AccountServiceImpl(AccountRepository accountRepository, PasswordEncoder passwordEncoder, CurrencyService currencyService) {
         this.accountRepository = accountRepository;
+        this.passwordEncoder = passwordEncoder;
         this.currencyService = currencyService;
     }
 
     @Transactional
     @Override
     public Account register(Account account) {
-        Balance accountBalance = new Balance();
-        accountBalance.setCurrency(currencyService.getByTicker(INITIAL_BALANCE_TICKER));
-        accountBalance.setAmount(INITIAL_BALANCE_AMOUNT);
-        accountBalance.setOwner(account);
+        createInitialBalance().setOwner(account);
 
+        account.setPassword(passwordEncoder.encode(account.getPassword()));
         return accountRepository.save(account);
     }
 
@@ -75,5 +76,13 @@ public class AccountServiceImpl implements AccountService, UserDetailsService {
             throw new UsernameNotFoundException("User not found!");
 
         return new AccountDetails(account.get());
+    }
+
+    private Balance createInitialBalance() {
+        final Balance balance = new Balance();
+        balance.setCurrency(currencyService.getByTicker(INITIAL_BALANCE_TICKER));
+        balance.setAmount(INITIAL_BALANCE_AMOUNT);
+
+        return balance;
     }
 }
