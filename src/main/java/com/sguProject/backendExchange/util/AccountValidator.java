@@ -12,6 +12,9 @@ import java.util.Optional;
 @Component
 public class AccountValidator implements Validator {
 
+    private static final int MINIMUM_PASSWORD_LENGTH = 5;
+    private static final int MAXIMUM_PASSWORD_LENGTH = 30;
+
     private final AccountService accountService;
 
     @Autowired
@@ -32,5 +35,11 @@ public class AccountValidator implements Validator {
 
         if (accountEqualsUsername.isPresent())
             errors.rejectValue("username", "","Account with that username already exist");
+
+        int passwordLength = account.getPassword().length();
+        if (passwordLength < MINIMUM_PASSWORD_LENGTH || passwordLength > MAXIMUM_PASSWORD_LENGTH)
+            errors.rejectValue("password", "",
+                    "Password should be between " + MINIMUM_PASSWORD_LENGTH + " and " +
+                            MAXIMUM_PASSWORD_LENGTH + " characters");
     }
 }

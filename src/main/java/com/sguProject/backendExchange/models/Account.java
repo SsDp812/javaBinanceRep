@@ -19,7 +19,6 @@ public class Account {
     private String username;
 
     @NotEmpty(message = "Password should not be empty")
-    @Size(min = 5, max = 30, message = "Password should be between 5 and 30 characters")
     @Column(name = "password", nullable = false)
     private String password;
 
