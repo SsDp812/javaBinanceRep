@@ -3,6 +3,7 @@ package com.sguProject.backendExchange.services;
 import com.sguProject.backendExchange.models.Currency;
 import com.sguProject.backendExchange.repositories.CurrencyRepository;
 import com.sguProject.backendExchange.services.interfaces.CurrencyService;
+import com.sguProject.backendExchange.util.exception.CurrencyNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,7 +42,7 @@ public class CurrencyServiceImpl implements CurrencyService {
     @Override
     public Currency getByTicker(String ticker) {
         return currencyRepository.findByTicker(ticker)
-                .orElseThrow(NoSuchElementException::new);
+                .orElseThrow(() -> new CurrencyNotFoundException(ticker));
     }
 
     @Override
