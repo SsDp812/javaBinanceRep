@@ -13,6 +13,8 @@ public interface BalanceService {
 
     List<Balance> getAll();
 
+    Balance getUserBalanceBy(String currencyTicker);
+
     Set<Balance> getAllByOwner(Account owner);
 
     Optional<Balance> findBy(Account owner, Currency currency);

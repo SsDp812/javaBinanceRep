@@ -5,7 +5,10 @@ import com.sguProject.backendExchange.models.Balance;
 import com.sguProject.backendExchange.models.Currency;
 import com.sguProject.backendExchange.repositories.AccountRepository;
 import com.sguProject.backendExchange.repositories.BalanceRepository;
+import com.sguProject.backendExchange.services.interfaces.AccountService;
 import com.sguProject.backendExchange.services.interfaces.BalanceService;
+import com.sguProject.backendExchange.services.interfaces.CurrencyService;
+import com.sguProject.backendExchange.util.exception.BalanceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -23,13 +26,18 @@ public class BalanceServiceImpl implements BalanceService {
     private final static double INITIAL_BALANCE_AMOUNT = 0;
 
     private final BalanceRepository balanceRepository;
-
     private final AccountRepository accountRepository;
 
+    private final AccountService accountService;
+    private final CurrencyService currencyService;
+
     @Autowired
-    public BalanceServiceImpl(BalanceRepository balanceRepository, AccountRepository accountRepository) {
+    public BalanceServiceImpl(BalanceRepository balanceRepository, AccountRepository accountRepository,
+                              AccountService accountService, CurrencyService currencyService) {
         this.balanceRepository = balanceRepository;
         this.accountRepository = accountRepository;
+        this.accountService = accountService;
+        this.currencyService = currencyService;
     }
 
     @Transactional
@@ -44,6 +52,14 @@ public class BalanceServiceImpl implements BalanceService {
     @Override
     public List<Balance> getAll() {
         return balanceRepository.findAll();
+    }
+
+    @Override
+    public Balance getUserBalanceBy(String currencyTicker) {
+        Account account = accountService.getAccountCurrentSession();
+
+        return findBy(account, currencyService.getByTicker(currencyTicker))
+                .orElseThrow(() -> new BalanceNotFoundException(account.getId(), currencyTicker));
     }
 
     @Override
