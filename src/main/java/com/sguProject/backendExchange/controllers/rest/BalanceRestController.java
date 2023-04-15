@@ -1,17 +1,16 @@
 package com.sguProject.backendExchange.controllers.rest;
 
 import com.sguProject.backendExchange.dto.AccountBalanceDTO;
-import com.sguProject.backendExchange.models.Account;
 import com.sguProject.backendExchange.models.Balance;
-import com.sguProject.backendExchange.models.Currency;
-import com.sguProject.backendExchange.services.interfaces.AccountService;
 import com.sguProject.backendExchange.services.interfaces.BalanceService;
-import com.sguProject.backendExchange.services.interfaces.CurrencyService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -19,34 +18,24 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/balance")
 public class BalanceRestController {
 
-    private final AccountService accountService;
     private final BalanceService balanceService;
-    private final CurrencyService currencyService;
 
     @Autowired
-    public BalanceRestController(AccountService accountService,
-                                 BalanceService balanceService, CurrencyService currencyService) {
-        this.accountService = accountService;
+    public BalanceRestController(BalanceService balanceService) {
         this.balanceService = balanceService;
-        this.currencyService = currencyService;
     }
 
     @GetMapping()
     public List<AccountBalanceDTO> getBalances() {
-        Account currentUser = accountService.getAccountCurrentSession();
-        Set<Balance> balances = balanceService.getAllByOwner(currentUser);
-        return balances.stream().map(balance -> new AccountBalanceDTO(balance)).collect(Collectors.toList());
+        Set<Balance> balances = balanceService.getUserAllBalances();
+
+        return balances.stream().map(AccountBalanceDTO::new).collect(Collectors.toList());
     }
 
     @GetMapping("/{currencyTicker}")
     public double getBalance(@PathVariable String currencyTicker) {
-        Currency currency = currencyService.getByTicker(currencyTicker);
-        Account account = accountService.getAccountCurrentSession();
-        Optional<Balance> balance = balanceService.findBy(account, currency);
+        Balance balance = balanceService.getUserBalanceBy(currencyTicker);
 
-        if (balance.isEmpty())
-            return 0;
-
-        return balance.get().getAmount();
+        return balance.getAmount();
     }
 }

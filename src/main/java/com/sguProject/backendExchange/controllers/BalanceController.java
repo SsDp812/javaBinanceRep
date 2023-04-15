@@ -19,17 +19,15 @@ public class BalanceController {
     private static final String ATTRIBUTE_NAME_BALANCES = "balances";
 
     private final BalanceService balanceService;
-    private final AccountService accountService;
 
     @Autowired
-    public BalanceController(BalanceService balanceService, AccountService accountService) {
+    public BalanceController(BalanceService balanceService) {
         this.balanceService = balanceService;
-        this.accountService = accountService;
     }
 
     @GetMapping()
     public String index(Model model) {
-        Set<Balance> balances = balanceService.getAllByOwner(accountService.getAccountCurrentSession());
+        Set<Balance> balances = balanceService.getUserAllBalances();
 
         model.addAttribute(ATTRIBUTE_NAME_BALANCES, balances);
         return BALANCE;

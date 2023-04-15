@@ -14,9 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -50,33 +47,25 @@ public class BalanceServiceImpl implements BalanceService {
     }
 
     @Override
-    public List<Balance> getAll() {
-        return balanceRepository.findAll();
-    }
-
-    @Override
     public Balance getUserBalanceBy(String currencyTicker) {
         Account account = accountService.getAccountCurrentSession();
 
-        return findBy(account, currencyService.getByTicker(currencyTicker))
+        return balanceRepository.findByOwnerAndCurrency(account, currencyService.getByTicker(currencyTicker))
                 .orElseThrow(() -> new BalanceNotFoundException(account.getId(), currencyTicker));
     }
 
     @Override
-    public Set<Balance> getAllByOwner(Account owner) {
-        return balanceRepository.findAllByOwner(owner);
-    }
+    public Set<Balance> getUserAllBalances() {
+        Account account = accountService.getAccountCurrentSession();
 
-    @Override
-    public Optional<Balance> findBy(Account owner, Currency currency) {
-        return balanceRepository.findByOwnerAndCurrency(owner, currency);
+        return balanceRepository.findAllByOwner(account);
     }
 
     @Transactional(isolation = Isolation.SERIALIZABLE)
     @Override
     public void withdraw(Account account, Currency currency, double amount) {
         Balance balance = balanceRepository.findByOwnerAndCurrency(account, currency)
-                .orElseThrow(NoSuchElementException::new);
+                .orElseThrow(() -> new BalanceNotFoundException(account.getId(), currency.getTicker()));
 
         if (amount > balance.getAmount()) {
             throw new IllegalArgumentException("Balance amount less than needs for success trade");
