@@ -67,10 +67,6 @@ public class BalanceServiceImpl implements BalanceService {
         Balance balance = balanceRepository.findByOwnerAndCurrency(account, currency)
                 .orElseThrow(() -> new BalanceNotFoundException(account.getId(), currency.getTicker()));
 
-        if (amount > balance.getAmount()) {
-            throw new IllegalArgumentException("Balance amount less than needs for success trade");
-        }
-
         balance.withdraw(amount);
     }
 
