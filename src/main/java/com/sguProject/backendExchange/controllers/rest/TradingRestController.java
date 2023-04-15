@@ -1,64 +1,34 @@
 package com.sguProject.backendExchange.controllers.rest;
 
-import com.sguProject.backendExchange.models.Account;
-import com.sguProject.backendExchange.models.Currency;
-import com.sguProject.backendExchange.models.CurrencyPair;
-import com.sguProject.backendExchange.services.interfaces.AccountService;
-import com.sguProject.backendExchange.services.interfaces.CurrencyPairService;
-import com.sguProject.backendExchange.services.interfaces.CurrencyService;
 import com.sguProject.backendExchange.services.interfaces.ExchangeService;
+import com.sguProject.backendExchange.util.enums.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/trading")
 public class TradingRestController {
 
-    private final AccountService accountService;
-    private final CurrencyService currencyService;
-    private final CurrencyPairService currencyPairService;
     private final ExchangeService exchangeService;
 
     @Autowired
-    public TradingRestController(AccountService accountService, CurrencyService currencyService, CurrencyPairService currencyPairService, ExchangeService exchangeService) {
-        this.accountService = accountService;
-        this.currencyService = currencyService;
-        this.currencyPairService = currencyPairService;
+    public TradingRestController(ExchangeService exchangeService) {
         this.exchangeService = exchangeService;
     }
 
-    @PutMapping("/sellQuoted")
-    public ResponseEntity<HttpStatus> sellQuoted(@RequestParam(name = "base") String baseTicker,
+    @PutMapping("/exchange")
+    public ResponseEntity<HttpStatus> exchange(@RequestParam(name = "base") String baseTicker,
                                               @RequestParam(name = "quoted") String quotedTicker,
-                                              @RequestParam(name = "quantity") double quantity) {
-        Account currentUser = accountService.getAccountCurrentSession();
+                                              @RequestParam(name = "quantity") double quantity,
+                                              @RequestParam(name = "operation") String operationName) {
+        Operation operation = Operation.valueOf(operationName);
 
-        Currency base = currencyService.getByTicker(baseTicker);
-        Currency quoted = currencyService.getByTicker(quotedTicker);
-
-        CurrencyPair currencyPair = currencyPairService.findByBaseAndQuoted(base, quoted)
-                .orElseThrow(IllegalArgumentException::new);
-
-        exchangeService.sellQuoted(currentUser, currencyPair, quantity);
-
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @PutMapping("/sellBase")
-    public ResponseEntity<HttpStatus> sellBase(@RequestParam(name = "base") String baseTicker,
-                                               @RequestParam(name = "quoted") String quotedTicker,
-                                               @RequestParam(name = "quantity") double quantity) {
-        Account currentUser = accountService.getAccountCurrentSession();
-
-        Currency base = currencyService.getByTicker(baseTicker);
-        Currency quoted = currencyService.getByTicker(quotedTicker);
-
-        CurrencyPair currencyPair = currencyPairService.findByBaseAndQuoted(base, quoted)
-                .orElseThrow(IllegalArgumentException::new);
-
-        exchangeService.sellBase(currentUser, currencyPair, quantity);
+        exchangeService.exchange(baseTicker, quotedTicker, quantity, operation);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

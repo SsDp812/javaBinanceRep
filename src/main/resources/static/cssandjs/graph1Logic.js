@@ -156,7 +156,7 @@ anychart.onDocumentReady(function () {
           let label = document.querySelector('.priceNumber1');
           console.log()
           let count =  parseFloat(bal2.textContent)*number;
-          fetch('http://localhost:8080/api/trading/sellQuoted?base='+coins[0] + '&quoted='+coins[1] + '&quantity='+count, {
+          fetch('http://localhost:8080/api/trading/exchange?base='+coins[0] + '&quoted='+coins[1] + '&quantity='+count + '&operation=BUY', {
               method : "PUT",
               mode: 'cors',
               headers: {
@@ -177,7 +177,7 @@ anychart.onDocumentReady(function () {
           let number = range.value / 100;
           let label = document.querySelector('.priceNumber1');
           let count = parseFloat(bal1.textContent)*number;
-          fetch('http://localhost:8080/api/trading/sellBase?base='+coins[0] + '&quoted='+coins[1] + '&quantity='+count, {
+          fetch('http://localhost:8080/api/trading/exchange?base='+coins[0] + '&quoted='+coins[1] + '&quantity='+count + '&operation=SELL', {
               method : "PUT",
               mode: 'cors',
               headers: {
