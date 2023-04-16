@@ -68,13 +68,10 @@ anychart.onDocumentReady(function () {
     
 
     function updateChart(pair,param){
-        fetch('http://localhost:3002/prices?symbol=' + pair + '&time=1m&count=12', {
+        fetch('https://api.binance.com/api/v3/uiKlines?symbol=' + pair + '&interval=1m&limit=12', {
             method : "GET",
-            mode: 'cors',
             headers: {
-                'Access-Control-Allow-Origin': 'http://localhost:3002',
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
+                Accept: 'application/json;charset=UTF-8'
             }
         })
     .then(r => r.json())
@@ -82,14 +79,15 @@ anychart.onDocumentReady(function () {
         dataCh = []
         for(let i = 0; i < prices.length;i++){
             let col;
-            if(parseFloat(prices[i]["close"])>parseFloat(prices[i]["open"])){
+            if(parseFloat(prices[i][4])>parseFloat(prices[i][1])){
                 col = upColor;
             }
             else{
                 col = downColor
             }
-            let med = (parseFloat(prices[i]["close"]) + parseFloat(prices[i]["open"])) / 2;
-            dataCh.push({x:prices[i]["time"],low:parseFloat(prices[i]["low"]),q1:parseFloat(prices[i]["open"]),median:parseFloat(med),q3:parseFloat(prices[i]["close"]),high:parseFloat(prices[i]["high"]),normal:col});
+            let med = (parseFloat(prices[i][4]) + parseFloat(prices[i][1])) / 2;
+            const date = new Date(prices[i][0]);
+            dataCh.push({x:date.getHours()+':'+(date.getMinutes() > 9 ? '' : '0') +date.getMinutes(),low:parseFloat(prices[i][3]),q1:parseFloat(prices[i][1]),median:parseFloat(med),q3:parseFloat(prices[i][4]),high:parseFloat(prices[i][2]),normal:col});
         }
         if(param!="first"){
             title1= chart1.title(pair);
