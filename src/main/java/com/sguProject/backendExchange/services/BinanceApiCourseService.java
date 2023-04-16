@@ -1,10 +1,9 @@
 package com.sguProject.backendExchange.services;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.sguProject.backendExchange.models.CurrencyPair;
 import com.sguProject.backendExchange.services.interfaces.CourseService;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -18,16 +17,8 @@ public class BinanceApiCourseService implements CourseService {
 
         RestTemplate restTemplate = new RestTemplate();
 
-        JSONParser parser = new JSONParser();
-        JSONObject response = null;
-        try {
-            response = (JSONObject) parser.parse(restTemplate.getForObject(url, String.class));
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
+        JsonObject response = JsonParser.parseString(restTemplate.getForObject(url, String.class)).getAsJsonObject();
 
-        String course = (String) response.get("price");
-
-        return Double.parseDouble(course);
+        return response.get("price").getAsDouble();
     }
 }
