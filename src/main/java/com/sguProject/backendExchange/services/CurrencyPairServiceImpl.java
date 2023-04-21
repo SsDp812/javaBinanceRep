@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -47,9 +46,4 @@ public class CurrencyPairServiceImpl implements CurrencyPairService {
         return currencyPairRepository.findAll();
     }
 
-    @Override
-    public CurrencyPair getById(int id) {
-        return currencyPairRepository.findById(id)
-                .orElseThrow(NoSuchElementException::new);
-    }
 }

@@ -13,6 +13,4 @@ public interface CurrencyPairService {
 
     List<CurrencyPair> getAll();
 
-    CurrencyPair getById(int id);
-
 }
