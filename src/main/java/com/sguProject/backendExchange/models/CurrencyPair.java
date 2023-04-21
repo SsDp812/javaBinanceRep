@@ -25,6 +25,12 @@ public class CurrencyPair {
     @Column(name = "is_available", nullable = false)
     private boolean isAvailable;
 
+    public CurrencyPair(Currency base, Currency quoted) {
+        this.base = base;
+        this.quoted = quoted;
+        this.isAvailable = true;
+    }
+
     public int getId() {
         return id;
     }
