@@ -36,6 +36,10 @@ public class Currency {
         this.name = name;
     }
 
+    public Currency(String ticker) {
+        this.ticker = ticker;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
