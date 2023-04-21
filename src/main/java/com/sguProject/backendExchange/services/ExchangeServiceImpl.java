@@ -31,6 +31,7 @@ public class ExchangeServiceImpl implements ExchangeService {
         this.transactionService = transactionService;
     }
 
+    @Transactional(isolation = Isolation.SERIALIZABLE)
     @Override
     public void exchange(String baseTicker, String quotedTicker, double quantity, Operation operation) {
         Account account = accountService.getAccountCurrentSession();
@@ -39,9 +40,7 @@ public class ExchangeServiceImpl implements ExchangeService {
         exchange(account, currencyPair, quantity, operation);
     }
 
-    @Transactional(isolation = Isolation.SERIALIZABLE)
-    @Override
-    public void exchange(Account account, CurrencyPair currencyPair, double quantity, Operation operation) {
+    private void exchange(Account account, CurrencyPair currencyPair, double quantity, Operation operation) {
         if (quantity <= 0)
             throw new IllegalArgumentException("quantity can not be negative or zero");
 
