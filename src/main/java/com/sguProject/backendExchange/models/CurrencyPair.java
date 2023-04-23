@@ -31,6 +31,8 @@ public class CurrencyPair {
         this.isAvailable = true;
     }
 
+    public CurrencyPair() {}
+
     public int getId() {
         return id;
     }

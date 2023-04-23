@@ -40,6 +40,8 @@ public class Currency {
         this.ticker = ticker;
     }
 
+    public Currency() {}
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
