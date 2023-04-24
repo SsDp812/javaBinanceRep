@@ -58,6 +58,7 @@ class ExchangeServiceImplTest {
         btcBalance.setId(0);
         btcBalance.setCurrency(btc);
         btcBalance.setOwner(account);
+        btcBalance.setAmount(5);
 
         Balance usdtBalance = new Balance();
         usdtBalance.setId(1);
@@ -93,6 +94,23 @@ class ExchangeServiceImplTest {
         assertAll(
                 () -> assertEquals(1, getAmount(baseTicker) - buyableAmount),
                 () -> assertEquals(30000, salableAmount - getAmount(quotedTicker))
+        );
+    }
+
+    @Test
+    void exchange_whenSellOneBtcUsdt_thenBalancesChanged() {
+
+        String baseTicker = "BTC";
+        String quotedTicker = "USDT";
+
+        double buyableAmount = getAmount(baseTicker);
+        double salableAmount = getAmount(quotedTicker);
+
+        exchangeService.exchange(baseTicker, quotedTicker, 1, Operation.SELL);
+
+        assertAll(
+                () -> assertEquals(1, buyableAmount - getAmount(baseTicker)),
+                () -> assertEquals(30000, getAmount(quotedTicker) - salableAmount)
         );
     }
 
