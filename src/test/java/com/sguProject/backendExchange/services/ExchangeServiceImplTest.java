@@ -103,14 +103,14 @@ class ExchangeServiceImplTest {
         String baseTicker = "BTC";
         String quotedTicker = "USDT";
 
-        double buyableAmount = getAmount(baseTicker);
-        double salableAmount = getAmount(quotedTicker);
+        double salableAmount = getAmount(baseTicker);
+        double buyableAmount = getAmount(quotedTicker);
 
         exchangeService.exchange(baseTicker, quotedTicker, 1, Operation.SELL);
 
         assertAll(
-                () -> assertEquals(1, buyableAmount - getAmount(baseTicker)),
-                () -> assertEquals(30000, getAmount(quotedTicker) - salableAmount)
+                () -> assertEquals(1, salableAmount - getAmount(baseTicker)),
+                () -> assertEquals(30000, getAmount(quotedTicker) - buyableAmount)
         );
     }
 
