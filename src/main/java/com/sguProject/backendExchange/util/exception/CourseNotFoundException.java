@@ -1,6 +1,6 @@
 package com.sguProject.backendExchange.util.exception;
 
-public class CourseNotFoundException extends RuntimeException {
+public class CourseNotFoundException extends HttpNotFoundException {
     public CourseNotFoundException(String message) {
         this(message, null);
     }

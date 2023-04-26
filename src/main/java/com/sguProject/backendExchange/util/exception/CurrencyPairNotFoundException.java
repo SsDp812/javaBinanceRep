@@ -1,6 +1,6 @@
 package com.sguProject.backendExchange.util.exception;
 
-public class CurrencyPairNotFoundException extends RuntimeException {
+public class CurrencyPairNotFoundException extends HttpNotFoundException {
     public CurrencyPairNotFoundException(String baseTicker, String quotedTicker) {
         this(baseTicker, quotedTicker, null);
     }

@@ -2,13 +2,12 @@ package com.sguProject.backendExchange.controllers.rest;
 
 import com.sguProject.backendExchange.services.interfaces.ExchangeService;
 import com.sguProject.backendExchange.util.enums.Operation;
+import com.sguProject.backendExchange.util.exception.HttpNotFoundException;
+import com.sguProject.backendExchange.util.exception.dto.ErrorResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/trading")
@@ -31,5 +30,16 @@ public class TradingRestController {
         exchangeService.exchange(baseTicker, quotedTicker, quantity, operation);
 
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @ExceptionHandler
+    private ResponseEntity<ErrorResponse> handleException(HttpNotFoundException e) {
+        return new ResponseEntity<>(new ErrorResponse(e.getMessage()), e.getHttpStatus());
+    }
+
+    @ExceptionHandler
+    private ResponseEntity<ErrorResponse> handleException(Exception e) {
+        HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+        return new ResponseEntity<>(new ErrorResponse(status.getReasonPhrase()), status);
     }
 }

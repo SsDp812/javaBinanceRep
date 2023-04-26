@@ -1,6 +1,6 @@
 package com.sguProject.backendExchange.util.exception;
 
-public class AccountNotFoundException extends RuntimeException {
+public class AccountNotFoundException extends HttpNotFoundException {
     public AccountNotFoundException(long id) {
         this(id, null);
     }
