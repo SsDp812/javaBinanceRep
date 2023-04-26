@@ -12,7 +12,8 @@
 	<artifactId>backendExchange</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>backendExchange</name>
-	<description>project for university</description>
+	<description>Project for university</description>
+
 	<properties>
 		<java.version>17</java.version>
 	</properties>
