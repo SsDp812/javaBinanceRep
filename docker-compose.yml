@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:14
+    container_name: JavaBinance-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: rootroot
+      POSTGRES_DB: java_binance
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  app:
+    build: ./
+    container_name: JavaBinance-app
+    environment:
+      DATASOURCE_HOST: postgres
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
