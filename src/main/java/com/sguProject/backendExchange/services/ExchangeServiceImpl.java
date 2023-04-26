@@ -53,6 +53,6 @@ public class ExchangeServiceImpl implements ExchangeService {
         balanceService.withdraw(account, salable, quantity);
         balanceService.deposit(account, buyable, amount);
 
-        transactionService.create(account, currencyPair, operation, course, amount);
+        transactionService.create(account, currencyPair, operation, course, operation == Operation.BUY ? amount : quantity);
     }
 }
