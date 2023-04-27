@@ -22,15 +22,15 @@
                     </div>
                     <div class="f1 functions">
                         <div class="balLabel">Balance:</div>
-                        <div class="balanceNumber11 balanceNumber">100.0BTC</div>
-                        <div class="balanceNumber12 balanceNumber">100.0BTC</div>
+                        <div class="balanceNumber11 balanceNumber"></div>
+                        <div class="balanceNumber12 balanceNumber"></div>
                         <select class="sele sele1" name="moneyPair">
                             <option th:each="currencyPair : ${currencyPairs}"
                                     th:value="${currencyPair.getBase().getTicker()+currencyPair.getQuoted().getTicker()}"
                                     th:text="${currencyPair}"></option>
                         </select>
                         <div class="priceLabel1 priceLabel">Price:</div>
-                        <div class="priceNumber1 priceNumber">45ETH</div>
+                        <div class="priceNumber1 priceNumber"></div>
                         <input type="range" title="Pair" class = "fEl rangeEl range1">
                         <div class="buttons fEl">
                             <input type="button" title="BUY" value="BUY" class="f b1buy buyBt fBt">
