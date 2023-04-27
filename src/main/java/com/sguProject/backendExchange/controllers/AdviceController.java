@@ -9,12 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/advices")
 public class AdviceController {
 
-    private static final String ADVICES = "advices";
-
-    private static final String STRATEGIES = "strategies";
-    private static final String CONCEPTS = "concepts";
-    private static final String LESSONS = "lessons";
-    private static final String TEST = "test";
+    private static final String ADVICES = "advices/advices";
+    private static final String STRATEGIES = "advices/strategies";
+    private static final String CONCEPTS = "advices/concepts";
+    private static final String LESSONS = "advices/lessons";
+    private static final String TEST = "advices/test";
 
     @GetMapping()
     public String index() {
