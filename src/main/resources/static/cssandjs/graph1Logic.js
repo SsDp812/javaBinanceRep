@@ -29,8 +29,9 @@ anychart.onDocumentReady(function () {
             }
         })
         .then(r => r.json())
-        .then(bal => {
-            bal1.textContent = bal+ ' ' + coins[0];
+        .then(balance => {
+            if (balance['amount'] != null)
+                bal1.textContent = balance['amount']+ ' ' + coins[0];
         })
 
         fetch('http://localhost:8080/api/balance/' + coins[1], {
@@ -44,8 +45,9 @@ anychart.onDocumentReady(function () {
             }
         })
         .then(r => r.json())
-        .then(bal => {
-            bal2.textContent = bal+ ' ' + coins[1];
+        .then(balance => {
+            if (balance['amount'] != null)
+                bal2.textContent = balance['amount']+ ' ' + coins[1];
         })
 
     }
