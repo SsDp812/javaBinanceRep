@@ -80,7 +80,7 @@ public class Balance {
         if (amount <= 0)
             throw new IllegalArgumentException("Withdraw amount should be greater than 0");
         if (this.amount < amount)
-            throw new IllegalArgumentException("Withdraw amount is less than current amount");
+            throw new IllegalArgumentException("Withdraw amount is greater than current amount");
 
         this.amount -= amount;
     }
