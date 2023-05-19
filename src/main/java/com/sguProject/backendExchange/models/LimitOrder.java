@@ -107,6 +107,18 @@ public class LimitOrder {
         this.eventDate = eventDate;
     }
 
+    public void complete() {
+        setStatus(OrderStatus.COMPLETED);
+        setEventDate(LocalDateTime.now());
+    }
+
+    public boolean isExecutable(double currentCourse) {
+        if (operation == Operation.SELL)
+            return currentCourse >= targetCourse;
+        else
+            return currentCourse <= targetCourse;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -139,15 +151,5 @@ public class LimitOrder {
         result = 31 * result + (status != null ? status.hashCode() : 0);
         result = 31 * result + (eventDate != null ? eventDate.hashCode() : 0);
         return result;
-    }
-
-    public void complete() {
-        setStatus(OrderStatus.COMPLETED);
-        setEventDate(LocalDateTime.now());
-    }
-
-    public void cancel() {
-        setStatus(OrderStatus.CANCELED);
-        setEventDate(LocalDateTime.now());
     }
 }

@@ -1,6 +1,6 @@
 package com.sguProject.backendExchange.controllers.rest;
 
-import com.sguProject.backendExchange.dto.AccountBalanceDTO;
+import com.sguProject.backendExchange.dto.AccountBalanceDto;
 import com.sguProject.backendExchange.models.Balance;
 import com.sguProject.backendExchange.services.interfaces.BalanceService;
 import com.sguProject.backendExchange.util.exception.HttpNotFoundException;
@@ -26,17 +26,17 @@ public class BalanceRestController {
     }
 
     @GetMapping()
-    public List<AccountBalanceDTO> getBalances() {
+    public List<AccountBalanceDto> getBalances() {
         Set<Balance> balances = balanceService.getUserAllBalances();
 
-        return balances.stream().map(AccountBalanceDTO::new).collect(Collectors.toList());
+        return balances.stream().map(AccountBalanceDto::new).collect(Collectors.toList());
     }
 
     @GetMapping("/{currencyTicker}")
-    public AccountBalanceDTO getBalance(@PathVariable String currencyTicker) {
+    public AccountBalanceDto getBalance(@PathVariable String currencyTicker) {
         Balance balance = balanceService.getUserBalanceBy(currencyTicker);
 
-        return new AccountBalanceDTO(balance);
+        return new AccountBalanceDto(balance);
     }
 
     @ExceptionHandler
