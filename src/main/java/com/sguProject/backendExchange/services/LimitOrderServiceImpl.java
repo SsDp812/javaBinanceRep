@@ -43,6 +43,7 @@ public class LimitOrderServiceImpl implements LimitOrderService {
         return limitOrderRepository.findAllByOwner(owner);
     }
 
+    @Transactional
     @Override
     public void delete(int id) {
         limitOrderRepository.deleteById(id);
