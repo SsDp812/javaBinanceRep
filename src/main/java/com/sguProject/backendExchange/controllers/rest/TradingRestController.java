@@ -22,12 +22,26 @@ public class TradingRestController {
 
     @PutMapping("/exchange")
     public ResponseEntity<HttpStatus> exchange(@RequestParam(name = "base") String baseTicker,
-                                              @RequestParam(name = "quoted") String quotedTicker,
-                                              @RequestParam(name = "quantity") double quantity,
-                                              @RequestParam(name = "operation") String operationName) {
+                                               @RequestParam(name = "quoted") String quotedTicker,
+                                               @RequestParam(name = "quantity") double quantity,
+                                               @RequestParam(name = "operation") String operationName) {
         Operation operation = Operation.valueOf(operationName);
 
         exchangeService.exchange(baseTicker, quotedTicker, quantity, operation);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
+    @PutMapping("/exchangeLimit")
+    public ResponseEntity<HttpStatus> exchangeLimit(@RequestParam(name = "base") String baseTicker,
+                                                    @RequestParam(name = "quoted") String quotedTicker,
+                                                    @RequestParam(name = "quantity") double quantity,
+                                                    @RequestParam(name = "course") double targetCourse,
+                                                    @RequestParam(name = "operation") String operationName) {
+        Operation operation = Operation.valueOf(operationName);
+
+        exchangeService.exchangeLimit(baseTicker, quotedTicker, quantity, operation, targetCourse);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

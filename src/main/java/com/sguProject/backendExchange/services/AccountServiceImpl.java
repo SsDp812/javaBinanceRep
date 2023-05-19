@@ -16,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.Optional;
 
 @Service
@@ -29,10 +30,13 @@ public class AccountServiceImpl implements AccountService, UserDetailsService {
 
     private final CurrencyService currencyService;
 
-    public AccountServiceImpl(AccountRepository accountRepository, PasswordEncoder passwordEncoder, CurrencyService currencyService) {
+    private final EntityManager entityManager;
+
+    public AccountServiceImpl(AccountRepository accountRepository, PasswordEncoder passwordEncoder, CurrencyService currencyService, EntityManager entityManager) {
         this.accountRepository = accountRepository;
         this.passwordEncoder = passwordEncoder;
         this.currencyService = currencyService;
+        this.entityManager = entityManager;
     }
 
     @Transactional
@@ -65,7 +69,7 @@ public class AccountServiceImpl implements AccountService, UserDetailsService {
         final Authentication auth= SecurityContextHolder.getContext().getAuthentication();
         final AccountDetails accountDetails = (AccountDetails) auth.getPrincipal();
 
-        return accountDetails.getAccount();
+        return entityManager.merge(accountDetails.getAccount());
     }
 
     @Override
