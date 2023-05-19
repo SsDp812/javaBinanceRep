@@ -18,7 +18,7 @@ anychart.onDocumentReady(function () {
     })
 
     function updateBalance(coins){
-        fetch('http://localhost:8080/getBalance/' + coins[0], {
+        fetch('http://localhost:8080/api/balance/' + coins[0], {
             method : "GET",
             mode: 'cors',
             headers: {
@@ -29,11 +29,16 @@ anychart.onDocumentReady(function () {
             }
         })
         .then(r => r.json())
-        .then(bal => {
-            bal1.textContent = bal+ ' ' + coins[0];
+        .then(balance => {
+            if (balance['amount'] != null)
+                bal1.textContent = balance['amount']
+            else
+                bal1.textContent = 0;
+
+            bal1.textContent += ' ' + coins[0];
         })
 
-        fetch('http://localhost:8080/getBalance/' + coins[1], {
+        fetch('http://localhost:8080/api/balance/' + coins[1], {
             method : "GET",
             mode: 'cors',
             headers: {
@@ -44,8 +49,13 @@ anychart.onDocumentReady(function () {
             }
         })
         .then(r => r.json())
-        .then(bal => {
-            bal2.textContent = bal+ ' ' + coins[1];
+        .then(balance => {
+            if (balance['amount'] != null)
+                bal2.textContent = balance['amount']
+            else
+                bal2.textContent = 0;
+
+            bal2.textContent += ' ' + coins[1];
         })
 
     }
@@ -68,13 +78,10 @@ anychart.onDocumentReady(function () {
     
 
     function updateChart(pair,param){
-        fetch('http://localhost:3002/prices?symbol=' + pair + '&time=1m&count=12', {
+        fetch('https://api.binance.com/api/v3/uiKlines?symbol=' + pair + '&interval=1m&limit=12', {
             method : "GET",
-            mode: 'cors',
             headers: {
-                'Access-Control-Allow-Origin': 'http://localhost:3002',
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
+                Accept: 'application/json;charset=UTF-8'
             }
         })
     .then(r => r.json())
@@ -82,14 +89,15 @@ anychart.onDocumentReady(function () {
         dataCh = []
         for(let i = 0; i < prices.length;i++){
             let col;
-            if(parseFloat(prices[i]["close"])>parseFloat(prices[i]["open"])){
+            if(parseFloat(prices[i][4])>parseFloat(prices[i][1])){
                 col = upColor;
             }
             else{
                 col = downColor
             }
-            let med = (parseFloat(prices[i]["close"]) + parseFloat(prices[i]["open"])) / 2;
-            dataCh.push({x:prices[i]["time"],low:parseFloat(prices[i]["low"]),q1:parseFloat(prices[i]["open"]),median:parseFloat(med),q3:parseFloat(prices[i]["close"]),high:parseFloat(prices[i]["high"]),normal:col});
+            let med = (parseFloat(prices[i][4]) + parseFloat(prices[i][1])) / 2;
+            const date = new Date(prices[i][0]);
+            dataCh.push({x:date.getHours()+':'+(date.getMinutes() > 9 ? '' : '0') +date.getMinutes(),low:parseFloat(prices[i][3]),q1:parseFloat(prices[i][1]),median:parseFloat(med),q3:parseFloat(prices[i][4]),high:parseFloat(prices[i][2]),normal:col});
         }
         if(param!="first"){
             title1= chart1.title(pair);
@@ -110,17 +118,16 @@ anychart.onDocumentReady(function () {
 
 
     function getPriceForlabel(pair){
-        fetch('http://localhost:3004/price?symbol='+pair, {
+        fetch('https://api.binance.com/api/v3/ticker/price?symbol='+pair, {
             method : "GET",
-            mode: 'cors',
             headers: {
-                'Access-Control-Allow-Origin': 'http://localhost:3004',
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
+                Accept: 'application/json;charset=UTF-8'
             }
           })
       .then(r => r.json())
       .then(price => {
+          console.log(price);
+          price = price['price'];
         let label = document.querySelector('.priceNumber1');
         let oldValue = parseFloat(label.textContent)
         label.textContent = price;
@@ -156,10 +163,9 @@ anychart.onDocumentReady(function () {
 
           let label = document.querySelector('.priceNumber1');
           console.log()
-          let count =  parseFloat(bal1.textContent)*number;
-          count = count.toFixed(11);
-          fetch('http://localhost:8080/buy?coin1=' + coins[0]+"&coin2="+coins[1]+"&number="+count, {
-              method : "GET",
+          let count =  parseFloat(bal2.textContent)*number;
+          fetch('http://localhost:8080/api/trading/exchange?base='+coins[0] + '&quoted='+coins[1] + '&quantity='+count + '&operation=BUY', {
+              method : "PUT",
               mode: 'cors',
               headers: {
                   'Access-Control-Allow-Origin': 'http://localhost:8080',
@@ -178,10 +184,9 @@ anychart.onDocumentReady(function () {
           let range = document.querySelector('.range1');
           let number = range.value / 100;
           let label = document.querySelector('.priceNumber1');
-          let count = parseFloat(bal2.textContent)*number;
-          count = count.toFixed(11);
-          fetch('http://localhost:8080/sell?coin1=' + coins[0]+"&coin2="+coins[1]+"&number="+count, {
-              method : "GET",
+          let count = parseFloat(bal1.textContent)*number;
+          fetch('http://localhost:8080/api/trading/exchange?base='+coins[0] + '&quoted='+coins[1] + '&quantity='+count + '&operation=SELL', {
+              method : "PUT",
               mode: 'cors',
               headers: {
                   'Access-Control-Allow-Origin': 'http://localhost:8080',

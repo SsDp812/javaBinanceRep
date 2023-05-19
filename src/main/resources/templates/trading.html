@@ -1,0 +1,127 @@
+<!doctype html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Trading</title>
+<meta name="description" content="Exchange">
+<meta name="author" content="-">
+<meta property="og:title" content="Exchange">
+    <link th:href="@{/cssandjs/main.css}" rel="stylesheet" />
+</head>
+   
+<body>
+    <div class="MainBox">
+        <div th:insert="menu :: copy"></div>
+
+        <div class="row row1">
+                <div class="ch ch1">
+                    <div id = "chartWindow1" class="chartWindow chartWindow1" style="color: black;font-size: large;font-style: italic; font-weight: bold;" >
+                    </div>
+                    <div class="f1 functions">
+                        <div class="balLabel">Balance:</div>
+                        <div class="balanceNumber11 balanceNumber"></div>
+                        <div class="balanceNumber12 balanceNumber"></div>
+                        <select class="sele sele1" name="moneyPair">
+                            <option th:each="currencyPair : ${currencyPairs}"
+                                    th:value="${currencyPair.getBase().getTicker()+currencyPair.getQuoted().getTicker()}"
+                                    th:text="${currencyPair}"></option>
+                        </select>
+                        <div class="priceLabel1 priceLabel">Price:</div>
+                        <div class="priceNumber1 priceNumber"></div>
+                        <input type="range" title="Pair" class = "fEl rangeEl range1">
+                        <div class="buttons fEl">
+                            <input type="button" title="BUY" value="BUY" class="f b1buy buyBt fBt">
+                            <input type="button" title="SELL" value="SELL" class="f b1sell sellBt fBt">
+                        </div>
+                    </div>
+                </div>
+               
+
+                <div class="ch ch2">
+                    <div id = "chartWindow2" class="chartWindow chartWindow2" style="color: black;font-size: large;font-style: italic; font-weight: bold;" >
+                    </div>
+                    <div class="f2 functions">
+                        <div class="balLabel">Balance:</div>
+                        <div class="balanceNumber21 balanceNumber">100.0BTC</div>
+                        <div class="balanceNumber22 balanceNumber">100.0BTC</div>
+                        <select class="sele sele2" name="moneyPair">
+                            <option th:each="currencyPair : ${currencyPairs}"
+                                    th:value="${currencyPair.getBase().getTicker()+currencyPair.getQuoted().getTicker()}"
+                                    th:text="${currencyPair}"></option>
+                        </select>
+                        <div class="priceLabel2 priceLabel">Price:</div>
+                        <div class="priceNumber2 priceNumber">45ETH</div>
+                        <input type="range" title="Pair" class = "fEl rangeEl range2">
+                        <div class="buttons fEl">
+                            <input type="button" title="BUY" value="BUY" class="f b2buy buyBt fBt">
+                            <input type="button" title="SELL" value="SELL" class="f b2sell sellBt fBt">
+                        </div>
+                    </div>
+                </div>
+        </div>
+        
+
+
+        <div class="row row2">
+            <div class="ch ch3">
+                <div id = "chartWindow3" class="chartWindow chartWindow3" style="color: black;font-size: large;font-style: italic; font-weight: bold;" >
+                </div>
+                <div class="f3 functions">
+                    <div class="balLabel">Balance:</div>
+                    <div class="balanceNumber31 balanceNumber">100.0BTC</div>
+                    <div class="balanceNumber32 balanceNumber">100.0BTC</div>
+                    <select class="sele sele3" name="moneyPair">
+                        <option th:each="currencyPair : ${currencyPairs}"
+                                th:value="${currencyPair.getBase().getTicker()+currencyPair.getQuoted().getTicker()}"
+                                th:text="${currencyPair}"></option>
+                    </select>
+                    <div class="priceLabel3 priceLabel">Price:</div>
+                    <div class="priceNumber3 priceNumber">45ETH</div>
+                    <input type="range" title="Pair" class = "fEl rangeEl range3">
+                    <div class="buttons fEl">
+                        <input type="button" title="BUY" value="BUY" class="f b3buy buyBt fBt">
+                        <input type="button" title="SELL" value="SELL" class="f b3sell sellBt fBt">
+                    </div>
+                </div>
+            </div>
+           
+
+            <div class="ch ch4">
+                <div id = "chartWindow4" class="chartWindow chartWindow4" style="color: black;font-size: large;font-style: italic; font-weight: bold;" >
+                </div>
+                <div class="f4 functions">
+                    <div class="balLabel4 priceLabel">Balance:</div>
+                    <div class="balanceNumber41 balanceNumber">100.0BTC</div>
+                    <div class="balanceNumber42 balanceNumber">100.0BTC</div>
+                    <select class="sele sele4" name="moneyPair">
+                        <option th:each="currencyPair : ${currencyPairs}"
+                                th:value="${currencyPair.getBase().getTicker()+currencyPair.getQuoted().getTicker()}"
+                                th:text="${currencyPair}"></option>
+                    </select>
+                    <div class="priceLabel4 priceLabel">Price:</div>
+                    <div class="priceNumber4 priceNumber">45ETH</div>
+                    <input type="range" title="Pair" class = "fEl rangeEl range4">
+                    <div class="buttons fEl">
+                        <input type="button" title="BUY" value="BUY" class="f b4buy buyBt fBt">
+                        <input type="button" title="SELL" value="SELL" class="f b4sell sellBt fBt">
+                    </div>
+                </div>
+            </div>
+    </div>
+
+
+        <footer></footer>
+    </div>
+<script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-core.min.js"></script>
+<script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-cartesian.min.js"></script>
+
+    <script type="text/javascript" th:src="@{/cssandjs/graph1Logic.js}"></script>
+    <!-- <script type="text/javascript" th:src="@{/cssandjs/graph2Logic.js}"></script> -->
+    <!-- <script type="text/javascript" th:src="@{/cssandjs/graph3Logic.js}"></script> -->
+    <!-- <script type="text/javascript" th:src="@{/cssandjs/graph4Logic.js}"></script> -->
+
+</body>
+</html>

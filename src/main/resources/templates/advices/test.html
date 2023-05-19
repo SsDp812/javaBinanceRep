@@ -1,0 +1,147 @@
+<!doctype html>
+
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Test</title>
+    <meta name="description" content="Exchange">
+    <meta name="author" content="-">
+    <meta property="og:title" content="Exchange">
+    <link th:href="@{/cssandjs/main.css}" rel="stylesheet" />
+</head>
+
+</head>
+<body>
+<div class="MainBox">
+    <div th:insert="menu :: copy"></div>
+
+    <div class="test">
+
+        <div class="quest">
+
+            <p class="q q1" id="q1">Термин, описывающий все цифровые активы-альтернативы биткоина.</p>
+            <select class="sel" id="sel1">
+                <option selected disabled>Выберите ответ</option>
+                <option value="1">Альткоин</option>
+                <option value="2">Биткоин</option>
+                <option value="3">Токен</option>
+                <option value="4">Актив</option>
+            </select>
+        </div>
+
+
+        <div class="quest">
+            <p class="q q2"  id="q2">Первая криптовалюта</p>
+            <select class="sel" id="sel2">
+                <option selected disabled>Выберите ответ</option>
+                <option value="1">Bitcoin</option>
+                <option value="2">LTC</option>
+                <option value="3">Ethereum</option>
+                <option value="4">Dash</option>
+            </select>
+        </div>
+
+
+        <div class="quest">
+            <p class="q q3" id="q3">Цифровой актив, который имеет отношение к конкретному проекту и выпущен на базе криптовалюты.</p>
+            <select class="sel" id="sel3">
+                <option selected disabled>Выберите ответ</option>
+                <option value="1">Биткоин</option>
+                <option value="2">Монета</option>
+                <option value="3">Токен</option>
+                <option value="4">Депозит</option>
+            </select>
+        </div>
+
+
+        <div class="quest">
+            <p class="q q4" id="q4">Что такое блокчейн?</p>
+            <select class="sel" id="sel4">
+                <option selected disabled>Выберите ответ</option>
+                <option value="1">Это платформа для создания онлайн-сервисов для обмена криптовалютой</option>
+                <option value="2">Это инструмент краудфандинга с использованием криптовалюты. В основном для стартапов</option>
+                <option value="3">Это внутренняя валюта, которая представляет собой запись в регистре данных</option>
+                <option value="4">Это выстроенная по определённым правилам непрерывная последовательная цепочка блоков, содержащих информацию </option>
+            </select>
+        </div>
+
+
+        <div class="quest">
+            <p class="q q5" id="q5">Стейблкоин</p>
+            <select class="sel" id="sel5">
+                <option selected disabled>Выберите ответ</option>
+                <option value="1">Новая криптовалюта</option>
+                <option value="2">Токен с фиксированным курсом</option>
+                <option value="3">Токен без цены</option>
+                <option value="4">Биржа</option>
+            </select>
+        </div>
+
+
+        <div class="quest">
+            <p class="q q6" id="q6">Смарт-контракт</p>
+            <select class="sel" id="sel6">
+                <option selected disabled>Выберите ответ</option>
+                <option value="1">Стратегия торговли</option>
+                <option value="2">Контракт с биржей</option>
+                <option value="3">Крипто договор</option>
+                <option value="4">Определенный алгоритм, записанный в блокчейне</option>
+            </select>
+        </div>
+
+
+        <div class="quest">
+            <p class="q q7" id="q7">Форк</p>
+            <select class="sel" id="sel7">
+                <option selected disabled>Выберите ответ</option>
+                <option value="1">Создание альтернативного блокчейна из уже существующего</option>
+                <option value="2">Торговля по определенной стратегии</option>
+                <option value="3">Продажа актива</option>
+                <option value="4">Покупка актива</option>
+            </select>
+        </div>
+
+
+        <div class="quest">
+            <p class="q q8" id="q8">Быки</p>
+            <select class="sel" id="sel8">
+                <option selected disabled>Выберите ответ</option>
+                <option value="1">Неадекватные трейдеры</option>
+                <option value="2">Участники рынка, которые ожидают понижения цены актива</option>
+                <option value="3">Участники рынка, которые ожидают повешения цены актива</option>
+                <option value="4">Майнеры</option>
+            </select>
+        </div>
+
+
+        <div class="quest">
+            <p class="q q9" id="q9">Лонг</p>
+            <select class="sel" id="sel9">
+                <option selected disabled>Выберите ответ</option>
+                <option value="1">Сделка, при которой трейдер или инвестор покупает актив и ожидает роста его стоимости</option>
+                <option value="2">Сделка, при которой трейдер или инвестор покупает актив и ожидает понижения его стоимости</option>
+                <option value="3">Глупая сделка</option>
+                <option value="4">Длинное число в кошельке</option>
+            </select>
+        </div>
+
+
+        <div class="quest">
+            <p class="q q10" id="q10">Волатильность</p>
+            <select class="sel" id="sel10">
+                <option selected disabled>Выберите ответ</option>
+                <option value="1">Комиссия от биржи</option>
+                <option value="2">Процент изменения цены</option>
+                <option value="3">Степень колебаний цены криптовалюты</option>
+                <option value="4">Репутация токена в крипто сообществе</option>
+            </select>
+        </div>
+
+    </div>
+    <button class="testBT" >Check!</button>
+</div>
+<script type="text/javascript" th:src="@{/cssandjs/test.js}"></script>
+</body>
+</html>

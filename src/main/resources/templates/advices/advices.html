@@ -1,0 +1,38 @@
+<!doctype html>
+
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Advices</title>
+  <meta name="description" content="Exchange">
+  <meta name="author" content="-">
+  <meta property="og:title" content="Exchange">
+  <link th:href="@{/cssandjs/main.css}" rel="stylesheet" />
+</head>
+
+</head>
+<body>
+<div class="MainBox">
+  <div th:insert="menu :: copy"></div>
+
+  <div class="adds">
+    <div class="adv">
+      <a class="aADV" href="/advices/strategies">Strategies</a>
+    </div>
+    <div class="adv">
+      <a class="aADV" href="/advices/concepts">Concepts</a>
+    </div>
+    <div class="adv">
+      <a class="aADV" href="/advices/lessons">Lessons</a>
+    </div>
+    <div class="adv">
+      <a class="aADV" href="/advices/test">Test</a>
+    </div>
+  </div>
+
+</div>
+<script src="balance.js"></script>
+</body>
+</html>

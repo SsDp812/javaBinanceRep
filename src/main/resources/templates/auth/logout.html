@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Logout</title>
+</head>
+<body>
+<form th:action="@{/logout}" th:method="POST">
+    <h1>Are you sure you want to quit?</h1>
+    <input autofocus type="submit" value="Yes"/>
+</form>
+</body>
+</html>
