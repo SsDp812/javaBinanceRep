@@ -95,18 +95,13 @@ public class ExchangeServiceImpl implements ExchangeService {
                     return isLimitOrderExecutable(limitOrder, currentCourse);
                 })
                 .forEach(limitOrder -> {
-                    try {
-                        exchange(limitOrder.getOwner(),
-                                limitOrder.getCurrencyPair(),
-                                limitOrder.getQuantity(),
-                                limitOrder.getOperation(),
-                                currencyPairCourses.get(limitOrder.getCurrencyPair()));
+                    exchange(limitOrder.getOwner(),
+                            limitOrder.getCurrencyPair(),
+                            limitOrder.getQuantity(),
+                            limitOrder.getOperation(),
+                            currencyPairCourses.get(limitOrder.getCurrencyPair()));
 
-                        limitOrder.complete();
-                    }
-                    catch (RuntimeException ex) {
-                        limitOrder.cancel();
-                    }
+                    limitOrder.complete();
                 });
     }
 
