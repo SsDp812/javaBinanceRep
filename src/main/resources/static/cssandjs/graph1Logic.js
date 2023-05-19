@@ -29,13 +29,8 @@ anychart.onDocumentReady(function () {
             }
         })
         .then(r => r.json())
-        .then(balance => {
-            if (balance['amount'] != null)
-                bal1.textContent = balance['amount']
-            else
-                bal1.textContent = 0;
-
-            bal1.textContent += ' ' + coins[0];
+        .then(bal => {
+            bal1.textContent = bal+ ' ' + coins[0];
         })
 
         fetch('http://localhost:8080/api/balance/' + coins[1], {
@@ -49,13 +44,8 @@ anychart.onDocumentReady(function () {
             }
         })
         .then(r => r.json())
-        .then(balance => {
-            if (balance['amount'] != null)
-                bal2.textContent = balance['amount']
-            else
-                bal2.textContent = 0;
-
-            bal2.textContent += ' ' + coins[1];
+        .then(bal => {
+            bal2.textContent = bal+ ' ' + coins[1];
         })
 
     }
@@ -64,21 +54,22 @@ anychart.onDocumentReady(function () {
     let dataCh = []
     var chart1 = anychart.box();
     var upColor =   {
-        fill: "#00bfa5 0.3",
-        stroke: "#00bfa5",
-        medianStroke: "0.5 #00bfa5",
-        stemStroke: "0.5 #00bfa5"
+        fill: "#22DD22 0.3",
+        stroke: "#22DD22",
+        medianStroke: "0.5 #22DD22",
+        stemStroke: "0.5 #22DD22"
       }
       var downColor = {
-       fill: "#ff0000 0.3",
-        stroke: "#ff0000",
-        medianStroke: "0.5 #ff0000",
-        stemStroke: "0.5 #ff0000"
+       fill: "#ff4040 0.3",
+        stroke: "#ff4040",
+        medianStroke: "0.5 #ff4040",
+        stemStroke: "0.5 #ff4040"
       }
-    
+
+
 
     function updateChart(pair,param){
-        fetch('https://api.binance.com/api/v3/uiKlines?symbol=' + pair + '&interval=1m&limit=12', {
+        fetch('https://api.binance.com/api/v3/uiKlines?symbol=' + pair + '&interval=1m&limit=72', {
             method : "GET",
             headers: {
                 Accept: 'application/json;charset=UTF-8'
@@ -108,12 +99,12 @@ anychart.onDocumentReady(function () {
             title1= chart1.title(pair);
             chart1.interactivity("by-x");
             chart1.container("chartWindow1");
-            chart1.labels().fontColor("black");
+            chart1.labels().fontColor("white");
             chart1.width('100%');
             chart1.height('100%');
             chart1.draw();
         }
-        
+
     })}
 
 
@@ -143,20 +134,20 @@ anychart.onDocumentReady(function () {
     setInterval(function print(param) {
         getPriceForlabel(pair)
       }, 5000,pair)
-    
+
     setInterval(function print(param) {
         updateChart(pair,"notFirst")
-        
+
       }, 5000,pair)
-      
+
       setInterval(function print(param) {
         updateBalance(coins)
-        
+
       }, 1000,pair)
 
       let buyBT = document.querySelector('.b1buy');
       let sellBT = document.querySelector('.b1sell');
-  
+
       buyBT.addEventListener("click",function(){
           let range = document.querySelector('.range1');
           let number = range.value / 100;
@@ -177,9 +168,9 @@ anychart.onDocumentReady(function () {
           .then(bal => {
               updateBalance(coins)
           })
-  
+
       })
-  
+
       sellBT.addEventListener("click",function(){
           let range = document.querySelector('.range1');
           let number = range.value / 100;

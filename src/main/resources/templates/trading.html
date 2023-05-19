@@ -2,126 +2,528 @@
 
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Trading</title>
-<meta name="description" content="Exchange">
-<meta name="author" content="-">
-<meta property="og:title" content="Exchange">
-    <link th:href="@{/cssandjs/main.css}" rel="stylesheet" />
+    <title>Trading</title>
+    <meta name="description" content="Exchange">
+    <meta name="author" content="-">
+    <meta property="og:title" content="Exchange">
+    <style>
+        body {
+          background-color: white;
+          font-family: Arial, sans-serif;
+          color: black;
+          margin: 0;
+          padding: 0;
+          text-align: center;
+        }
+
+        header {
+          background-color: #ffcc00;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 8px;
+          position: relative;
+          height: 8vh;
+        }
+
+        .chartWindow,
+        .f1 {
+          /* border: 3px solid #ffcc00; */
+          margin: 0;
+          padding: 0;
+        }
+
+        .logo {
+          width: 80px;
+          height: 80px;
+        }
+
+        nav ul {
+          list-style: none;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        nav li {
+          margin-right: 22px;
+          font-size: 25px;
+          position: relative;
+        }
+
+        nav a {
+          color: black;
+          text-decoration: none;
+        }
+
+        nav a:hover {
+          color: white;
+        }
+
+        nav li::before,
+        nav li::after {
+          content: "";
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+          transition: all 0.2s linear;
+          z-index: -1;
+        }
+
+        nav li::before {
+          background-color: #ffcc00;
+          transform: scaleX(0);
+          transform-origin: left;
+        }
+
+        nav li::after {
+          background-color: #ffcc00;
+          transform: scaleX(0);
+          transform-origin: right;
+        }
+
+        nav li:hover::before {
+          transform: scaleX(1);
+        }
+
+        nav li:hover::after {
+          transform: scaleX(1);
+        }
+
+        .ch{
+            display: flex;
+            margin-right: 0;
+            height: 65vh;
+        }
+
+        .chartWindow1{
+            width: 76%;
+            height: 100%;
+        }
+        .f1{
+            width: 24%;
+            height: 100%;
+            background-color: white;
+            color: grey;
+        }
+
+
+
+
+
+        .balanceNumber{
+        color: white;
+        margin-top: 20px;
+        width: 100%;
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+        }
+        .balLabel{
+            color: white;
+            width: 100%;
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+        }
+        .functions{
+            display: grid;
+            background-color: black;
+        }
+        .priceLabel{
+            color: white;
+            width: 100%;
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+        }
+        .priceNumber{
+            color: white;
+            width: 100%;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .sele{
+            width: auto;
+            height: 30px;
+        }
+
+
+        .rangeEl{
+            display: block;
+            color: #56a7fc;
+        }
+        .buttons{
+            display: block;
+            width: 100%;
+        }
+
+        .fBt{
+            width: 63px;
+            height: 30px;
+            color: white;
+            font-size: 20px;
+            font-family: sans-serif;
+            border-radius: 10px;
+            border: 0,5px;
+            border-color: white;
+            display: inline;
+        }
+
+        .fBt{
+            width: 140px;
+        }
+
+        .f2{
+            background-color: black;
+            color: #ffcc00;
+            width: 70px;
+            margin-bottom: 10px;
+        }
+
+        .buyBt{
+            background-color: black;
+            border-color: #ffcc00;
+            color: #ffcc00;
+            background-image: -webkit-linear-gradient(45deg, #3bdc01 50%, transparent 50%);
+            background-image: linear-gradient(45deg, #3bdc01 50%, transparent 50%);
+            background-position: 100%;
+            background-size: 400%;
+            -webkit-transition: background 300ms ease-in-out;
+            transition: background 300ms ease-in-out;
+            margin-bottom: 10px;
+        }
+        .buyBt:hover {
+            background-position: 0;
+        }
+
+
+        .sellBt{
+            background-color: black;
+            border-color: #ffcc00;
+            color: #ffcc00;
+            background-image: -webkit-linear-gradient(45deg, #ed3c1d 50%, transparent 50%);
+            background-image: linear-gradient(45deg, #ed3c1d 50%, transparent 50%);
+            background-position: 100%;
+            background-size: 400%;
+            -webkit-transition: background 300ms ease-in-out;
+            transition: background 300ms ease-in-out;
+            margin-bottom: 10px;
+        }
+        .sellBt:hover {
+            background-position: 0;
+        }
+
+        .inputCount{
+            margin: auto;
+            width: 40%;
+        }
+
+        .sele{
+            width: 40%;
+            margin: auto;
+            margin-right: 10px;
+        }
+        .timesele{
+            margin-right: 10px;
+        }
+        .balanceBox{
+            margin-top: 10px;
+            display: flex;
+            color: white;
+            margin-top: 10px;
+            flex-direction: column;
+        }
+        .balLabel{
+            color:white;
+            height: auto;
+            text-align: left;
+            margin-left: 10px;
+        }
+
+        .priceLabel{
+            height: auto;
+            text-align: left;
+            margin-left: 10px;
+        }
+        .balanceNumber11{
+            text-align: center;
+        }
+        .balanceNumber12{
+            text-align: center;
+        }
+        .frameWindow{
+            display: flex;
+            margin-top: auto;
+        }
+        .pairWindow{
+            display: flex;
+            margin-top: auto;
+        }
+        .priceWindow{
+            display: flex;
+            margin-top: auto;
+            margin-bottom: 20px;
+        }
+        .BAL{
+            text-align: center;
+            margin-bottom: 0;
+        }
+        .priceNumber{
+            text-align: right;
+            margin-right: 10px;
+        }
+        .traidBox{
+            display: flex;
+            flex-direction: column;
+            margin-top: 0;
+        }
+        .elOfTraid{
+            background-color: #ffcc00;
+            margin-bottom: 16px;
+            height: 45%;
+            display: flex;
+            flex-direction: column;
+            border-radius: 12px;
+        }
+        .buyBox{
+            margin: auto;
+            width: 90%;
+        }
+        .sellBox{
+            margin: auto;
+            width: 90%;
+        }
+        .MainBox{
+            display: flex;
+        }
+        .functions{
+            height: 100%;
+        }
+        header{
+            height: 7vh;
+        }
+        .leftWindow{
+            display: flex;
+            flex-direction: column;
+            width: 75%;
+            height: 93vh;
+        }
+        .chartWindow{
+            height: 70%;
+            width: 100%;
+        }
+         .openOrdersBox{
+            height: 30%;
+            width: 100%;
+            background-color: black;
+        }
+        .functions{
+            height: 93vh;
+            width: 25%;
+        }
+        .inputCount {
+        border-radius: 7px;
+        padding-left: 10px;
+        padding-right: 20px;
+        border: 1px solid #d0c4db;
+        outline: none;
+        width: 70%;
+        text-align: right;
+        font-size: 15px;
+        height: 33px;
+        transition: .2s;
+        margin-top: 8px;
+        margin-bottom: 8px;
+        }
+
+        .inputTraidBox{
+            display: flex;
+        }
+        .priceAndCountLabel{
+            text-align: center;
+            color: black;
+            margin: auto;
+        }
+        .inputCountr:hover .inputCount,
+        .inputCount:focus .inputCount {
+            border-color: #888;
+        }
+        .select-css {
+            display: block;
+            font-size: 16px;
+            font-family: sans-serif;
+            font-weight: 700;
+            color: #444;
+            line-height: 1.3;
+            padding: .6em 1.4em .5em .8em; width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+            margin: 0;
+            border: 1px solid #aaa;
+            box-shadow: 0 1px 0 1px rgba(0,0,0,.04);
+            border-radius: .5em;
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            appearance: none;
+            background-color: #fff;
+            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'), linear-gradient(to bottom, #ffffff 0%,#e5e5e5 100%);
+            background-repeat: no-repeat, repeat;
+            background-position: right .7em top 50%, 0 0;
+            background-size: .65em auto, 100%;
+            height: 30px;
+            font-size: 13px;
+            text-align: right;
+            padding-right: 24px;
+            margin-right: 10px;
+            width: 140px;
+        }
+        .select-css::-ms-expand { display: none; }
+        .select-css:hover { border-color: #888; }
+        .select-css:focus {
+            border-color: #aaa;
+            box-shadow: 0 0 1px 3px #ffcc00;
+            box-shadow: 0 0 0 3px -moz-mac-focusring;
+            color: #222;
+            outline: none;
+        }
+ .select-css option { font-weight:normal; }
+ *[dir="rtl"] .select-css, :root:lang(ar) .select-css, :root:lang(iw) .select-css {
+background-position: left .7em top 50%, 0 0;
+padding: .6em .8em .5em 1.4em;
+}
+      </style>
 </head>
-   
+
 <body>
-    <div class="MainBox">
-        <div th:insert="menu :: copy"></div>
+<header>
+    <img th:src="@{https://cdn-icons-png.flaticon.com/512/3358/3358825.png}" alt="Crypto Trading" class="logo"  onclick="rotateImage()">
+    <nav>
+        <ul>
+            <li><a href="/main">MAIN</a></li>
+            <li><a href="/trading">Trading</a></li>
+            <li><a href="balance">Balance</a></li>
+            <li><a href="/history">History</a></li>
+            <li><a href="/advices">Advices</a></li>
+            <li><a href="/auth/logout">Logout</a></li>
+        </ul>
+    </nav>
+</header>
+<div class="MainBox">
 
-        <div class="row row1">
-                <div class="ch ch1">
-                    <div id = "chartWindow1" class="chartWindow chartWindow1" style="color: black;font-size: large;font-style: italic; font-weight: bold;" >
-                    </div>
-                    <div class="f1 functions">
-                        <div class="balLabel">Balance:</div>
-                        <div class="balanceNumber11 balanceNumber"></div>
-                        <div class="balanceNumber12 balanceNumber"></div>
-                        <select class="sele sele1" name="moneyPair">
-                            <option th:each="currencyPair : ${currencyPairs}"
-                                    th:value="${currencyPair.getBase().getTicker()+currencyPair.getQuoted().getTicker()}"
-                                    th:text="${currencyPair}"></option>
-                        </select>
-                        <div class="priceLabel1 priceLabel">Price:</div>
-                        <div class="priceNumber1 priceNumber"></div>
-                        <input type="range" title="Pair" class = "fEl rangeEl range1">
-                        <div class="buttons fEl">
-                            <input type="button" title="BUY" value="BUY" class="f b1buy buyBt fBt">
-                            <input type="button" title="SELL" value="SELL" class="f b1sell sellBt fBt">
-                        </div>
-                    </div>
-                </div>
-               
-
-                <div class="ch ch2">
-                    <div id = "chartWindow2" class="chartWindow chartWindow2" style="color: black;font-size: large;font-style: italic; font-weight: bold;" >
-                    </div>
-                    <div class="f2 functions">
-                        <div class="balLabel">Balance:</div>
-                        <div class="balanceNumber21 balanceNumber">100.0BTC</div>
-                        <div class="balanceNumber22 balanceNumber">100.0BTC</div>
-                        <select class="sele sele2" name="moneyPair">
-                            <option th:each="currencyPair : ${currencyPairs}"
-                                    th:value="${currencyPair.getBase().getTicker()+currencyPair.getQuoted().getTicker()}"
-                                    th:text="${currencyPair}"></option>
-                        </select>
-                        <div class="priceLabel2 priceLabel">Price:</div>
-                        <div class="priceNumber2 priceNumber">45ETH</div>
-                        <input type="range" title="Pair" class = "fEl rangeEl range2">
-                        <div class="buttons fEl">
-                            <input type="button" title="BUY" value="BUY" class="f b2buy buyBt fBt">
-                            <input type="button" title="SELL" value="SELL" class="f b2sell sellBt fBt">
-                        </div>
-                    </div>
-                </div>
+    <div class="leftWindow">
+        <div id = "chartWindow1" class="chartWindow chartWindow1" style="color: black;font-size: large;font-style: italic; font-weight: bold;" >
         </div>
-        
-
-
-        <div class="row row2">
-            <div class="ch ch3">
-                <div id = "chartWindow3" class="chartWindow chartWindow3" style="color: black;font-size: large;font-style: italic; font-weight: bold;" >
-                </div>
-                <div class="f3 functions">
-                    <div class="balLabel">Balance:</div>
-                    <div class="balanceNumber31 balanceNumber">100.0BTC</div>
-                    <div class="balanceNumber32 balanceNumber">100.0BTC</div>
-                    <select class="sele sele3" name="moneyPair">
-                        <option th:each="currencyPair : ${currencyPairs}"
-                                th:value="${currencyPair.getBase().getTicker()+currencyPair.getQuoted().getTicker()}"
-                                th:text="${currencyPair}"></option>
-                    </select>
-                    <div class="priceLabel3 priceLabel">Price:</div>
-                    <div class="priceNumber3 priceNumber">45ETH</div>
-                    <input type="range" title="Pair" class = "fEl rangeEl range3">
-                    <div class="buttons fEl">
-                        <input type="button" title="BUY" value="BUY" class="f b3buy buyBt fBt">
-                        <input type="button" title="SELL" value="SELL" class="f b3sell sellBt fBt">
-                    </div>
-                </div>
-            </div>
-           
-
-            <div class="ch ch4">
-                <div id = "chartWindow4" class="chartWindow chartWindow4" style="color: black;font-size: large;font-style: italic; font-weight: bold;" >
-                </div>
-                <div class="f4 functions">
-                    <div class="balLabel4 priceLabel">Balance:</div>
-                    <div class="balanceNumber41 balanceNumber">100.0BTC</div>
-                    <div class="balanceNumber42 balanceNumber">100.0BTC</div>
-                    <select class="sele sele4" name="moneyPair">
-                        <option th:each="currencyPair : ${currencyPairs}"
-                                th:value="${currencyPair.getBase().getTicker()+currencyPair.getQuoted().getTicker()}"
-                                th:text="${currencyPair}"></option>
-                    </select>
-                    <div class="priceLabel4 priceLabel">Price:</div>
-                    <div class="priceNumber4 priceNumber">45ETH</div>
-                    <input type="range" title="Pair" class = "fEl rangeEl range4">
-                    <div class="buttons fEl">
-                        <input type="button" title="BUY" value="BUY" class="f b4buy buyBt fBt">
-                        <input type="button" title="SELL" value="SELL" class="f b4sell sellBt fBt">
-                    </div>
-                </div>
-            </div>
+        <div class="openOrdersBox"></div>
     </div>
 
 
-        <footer></footer>
+    <div class="f1 functions">
+        <div class="frameWindow">
+            <div class="balLabel">Timeframe:</div>
+            <select class="timesele select-css">
+                <option>1m</option>
+                <option>3m</option>
+                <option>5m</option>
+                <option>15m</option>
+                <option>30m</option>
+            </select>
+        </div>
+        <div class="pairWindow">
+            <div class="balLabel">Pair:</div>
+            <select class="sele sele1 select-css" name="moneyPair">
+                <option th:each="currencyPair : ${currencyPairs}"
+                        th:value="${currencyPair.getBase().getTicker()+currencyPair.getQuoted().getTicker()}"
+                        th:text="${currencyPair}"></option>
+            </select>
+        </div>
+        <div class="priceWindow">
+            <div class="priceLabel1 priceLabel">Price:</div>
+            <div class="priceNumber1 priceNumber">45ETH</div>
+        </div>
+        <div class="balanceBox">
+            <div class="balanceNumber11 balanceNumber">100.0BTC</div>
+            <div class="balanceNumber12 balanceNumber">100.0BTC</div>
+        </div>
+
+
+
+        <div class="traidBox">
+            <div class="buyBox  elOfTraid">
+                <div class="inputTraidBox">
+                    <div class="priceAndCountLabel">Count:</div>
+                    <input type="number" min="0.000001" placeholder="Count" value="0.001" step="0.000001" class="inputCount">
+                </div>
+                <div class="inputTraidBox">
+                    <div class="priceAndCountLabel">Price:</div>
+                    <input type="number" min="0.000001" placeholder="Price" value="0.001" step="0.000001" class="inputCount">
+                </div>
+                <div class="buttons fEl">
+                    <input type="button" title="25" value="25%" class="f2 fBt">
+                    <input type="button" title="50" value="50%" class="f2 fBt">
+                    <input type="button" title="75T" value="75%" class="f2 fBt">
+                    <input type="button" title="100" value="100%" class="f2 fBt">
+                    <div class="buttons fEl">
+                        <input type="button" title="BUY LIMIT" value="BUY LIMIT" class="f b1buy buyBt fBt">
+                        <input type="button" title="SELL LIMIT" value="BUY" class="f b1buy buyBt fBt">
+                    </div>
+                </div>
+            </div>
+            <div class="sellBox elOfTraid">
+                <div class="inputTraidBox">
+                    <div class="priceAndCountLabel">Count:</div>
+                    <input type="number" min="0.000001" placeholder="Count" value="0.001" step="0.000001" class="inputCount">
+                </div>
+                <div class="inputTraidBox">
+                    <div class="priceAndCountLabel">Price:</div>
+                    <input type="number" min="0.000001" placeholder="Price" value="0.001" step="0.000001" class="inputCount">
+                </div>
+                <div class="buttons fEl">
+                    <input type="button" title="25" value="25%" class="f2 fBt">
+                    <input type="button" title="50" value="50%" class="f2 fBt">
+                    <input type="button" title="75T" value="75%" class="f2 fBt">
+                    <input type="button" title="100" value="100%" class="f2 fBt">
+                    <div class="buttons fEl">
+                        <input type="button" title="BUY LIMIT" value="SELL LIMIT" class="f b1sell sellBt fBt">
+                        <input type="button" title="SELL LIMIT" value="SELL" class="f b1sell sellBt fBt">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+
+</div>
+
+
+
+<footer></footer>
+</div>
 <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-core.min.js"></script>
 <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-cartesian.min.js"></script>
 
-    <script type="text/javascript" th:src="@{/cssandjs/graph1Logic.js}"></script>
-    <!-- <script type="text/javascript" th:src="@{/cssandjs/graph2Logic.js}"></script> -->
-    <!-- <script type="text/javascript" th:src="@{/cssandjs/graph3Logic.js}"></script> -->
-    <!-- <script type="text/javascript" th:src="@{/cssandjs/graph4Logic.js}"></script> -->
+<script type="text/javascript" th:src="@{/cssandjs/graph1Logic.js}"></script>
+<script>
+     function rotateImage() {
+     const image = document.querySelector('.logo');
+     image.style.transition = 'transform 2s ease-in-out'; // время и способ анимации
+     image.style.transform = 'rotate(360deg)'; // поворот на 360 градусов
+     // Сброс значений после окончания анимации
+    setTimeout(() => {
+      image.style.transition = '';
+      image.style.transform = '';
+    }, 2000);
+  }
+</script>
+<!-- <script type="text/javascript" th:src="@{/cssandjs/graph2Logic.js}"></script> -->
+<!-- <script type="text/javascript" th:src="@{/cssandjs/graph3Logic.js}"></script> -->
+<!-- <script type="text/javascript" th:src="@{/cssandjs/graph4Logic.js}"></script> -->
 
 </body>
 </html>

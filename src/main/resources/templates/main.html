@@ -1,71 +1,138 @@
 <!DOCTYPE html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link th:href="@{/cssandjs/main.css}" rel="stylesheet" />
-  <link th:href="@{/cssandjs/slider.css}" rel="stylesheet" />
-  <title>Main</title>
+    <meta charset="UTF-8">
+    <title>Crypto Trading</title>
+    <style>
+    body {
+      background-color: black;
+      font-family: Arial, sans-serif;
+      color: white;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    header {
+      background-color: #ffcc00;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px;
+      position: relative;
+      height: 8vh;
+    }
+
+    .logo {
+      width: 80px;
+      height: 80px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    nav li {
+      margin-right: 22px;
+      font-size: 25px;
+      position: relative;
+    }
+
+    nav a {
+      color: black;
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      color: white;
+    }
+
+    nav li::before,
+    nav li::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      transition: all 0.2s linear;
+      z-index: -1;
+    }
+
+    nav li::before {
+      background-color: #ffcc00;
+      transform: scaleX(0);
+      transform-origin: left;
+    }
+
+    nav li::after {
+      background-color: #ffcc00;
+      transform: scaleX(0);
+      transform-origin: right;
+    }
+
+    nav li:hover::before {
+      transform: scaleX(1);
+    }
+
+    nav li:hover::after {
+      transform: scaleX(1);
+    }
+
+    .welcome-message {
+      margin-top: calc((100vh - 140px - 50px) / 2);
+      height: 70px;
+      font-size: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1s ease-out, transform 1s ease-out;
+    }
+
+    .welcome-message.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
 </head>
 <body>
-<div class="MainBox">
-  <div th:insert="menu :: copy"></div>
-
-  <div class="itc-slider" data-slider="itc-slider" data-autoplay="true" data-interval="7000">
-
-    <div class="itc-slider__wrapper">
-
-      <div class="itc-slider__items">
-
-        <div class="itc-slider__item">
-
-          <div class="contentitem" >
-
-            <img class="imgCl" th:src="@{/cssandjs/ph11.jpeg}">
-
-          </div>
-
-        </div>
-        <div class="itc-slider__item">
-
-          <div class="contentitem" >
-
-            <img class="imgCl" th:src="@{/cssandjs/ph22.jpeg}">
-
-          </div>
-
-        </div>
-        <div class="itc-slider__item">
-
-          <div class="contentitem" >
-
-            <img class="imgCl" th:src="@{/cssandjs/ph33.jpeg}">
-
-          </div>
-
-        </div>
+<header>
+    <img th:src="@{https://cdn-icons-png.flaticon.com/512/3358/3358825.png}" alt="Crypto Trading" class="logo" onclick="rotateImage()">
+    <nav>
+        <ul>
+            <li><a href="/main">MAIN</a></li>
+            <li><a href="/trading">Trading</a></li>
+            <li><a href="balance">Balance</a></li>
+            <li><a href="/history">History</a></li>
+            <li><a href="/advices">Advices</a></li>
+            <li><a href="/auth/logout">Logout</a></li>
+        </ul>
+    </nav>
+</header>
+<h1 class="welcome-message">Welcome to Crypto Trading</h1>
+<script>
+  // Активируем анимацию появления заголовка
+  const title = document.querySelector('.welcome-message');
+  setTimeout(() => {
+    title.classList.add('active');
+  }, 750);
 
 
-
-      </div>
-
-    </div>
-
-    <button class="itc-slider__btn itc-slider__btn_prev"></button>
-    <button class="itc-slider__btn itc-slider__btn_next"></button>
-
-  </div>
-
-
-</div>
-
-
-
-</div>
-
-
+  function rotateImage() {
+     const image = document.querySelector('.logo');
+     image.style.transition = 'transform 2s ease-in-out'; // время и способ анимации
+     image.style.transform = 'rotate(360deg)'; // поворот на 360 градусов
+     // Сброс значений после окончания анимации
+    setTimeout(() => {
+      image.style.transition = '';
+      image.style.transform = '';
+    }, 2000);
+  }
+</script>
 </body>
-
-<script type="text/javascript" th:src="@{/cssandjs/slider.js}"></script>
 </html>
