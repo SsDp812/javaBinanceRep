@@ -1,8 +1,8 @@
 anychart.onDocumentReady(function () {
 
     let pair = document.querySelector(".sele1").value;
-    let bal1 = document.querySelector('.balanceNumber11');
-    let bal2 = document.querySelector('.balanceNumber12');
+    let bal1 = document.querySelector('.balanceNumber111');
+    let bal2 = document.querySelector('.balanceNumber122');
     let Label =  document.querySelector(".sele1");
     let coinLabel = (Label.options[Label.selectedIndex].text)
     let coins = coinLabel.split('/')
