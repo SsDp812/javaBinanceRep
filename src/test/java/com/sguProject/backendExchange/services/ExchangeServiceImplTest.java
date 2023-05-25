@@ -68,7 +68,7 @@ class ExchangeServiceImplTest {
 
         when(courseService.getCourse(currencyPair)).thenReturn(30000d);
 
-        when(accountService.getAccountCurrentSession()).thenReturn(account);
+        when(accountService.getProxyAccountCurrentSession()).thenReturn(account);
 
         when(currencyRepository.findByTicker("BTC")).thenReturn(Optional.of(btc));
         when(currencyRepository.findByTicker("USDT")).thenReturn(Optional.of(usdt));

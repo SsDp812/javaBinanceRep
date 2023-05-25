@@ -7,6 +7,7 @@ import com.sguProject.backendExchange.security.AccountDetails;
 import com.sguProject.backendExchange.services.interfaces.AccountService;
 import com.sguProject.backendExchange.services.interfaces.CurrencyService;
 import com.sguProject.backendExchange.util.exception.AccountNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.Optional;
 
 @Service
@@ -29,6 +31,7 @@ public class AccountServiceImpl implements AccountService, UserDetailsService {
 
     private final CurrencyService currencyService;
 
+    @Autowired
     public AccountServiceImpl(AccountRepository accountRepository, PasswordEncoder passwordEncoder, CurrencyService currencyService) {
         this.accountRepository = accountRepository;
         this.passwordEncoder = passwordEncoder;
@@ -62,10 +65,10 @@ public class AccountServiceImpl implements AccountService, UserDetailsService {
 
     @Override
     public Account getAccountCurrentSession() {
-        final Authentication auth= SecurityContextHolder.getContext().getAuthentication();
+        final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         final AccountDetails accountDetails = (AccountDetails) auth.getPrincipal();
 
-        return accountDetails.getAccount();
+        return getById(accountDetails.getAccount().getId());
     }
 
     @Override

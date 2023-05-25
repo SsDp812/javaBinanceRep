@@ -18,15 +18,14 @@ import java.util.*;
 public class LimitOrderServiceImpl implements LimitOrderService {
 
     private final LimitOrderRepository limitOrderRepository;
-    private final AccountService accountService;
     private final CurrencyPairService currencyPairService;
     private final CourseService courseService;
     private final ExchangeService exchangeService;
 
     @Autowired
-    public LimitOrderServiceImpl(LimitOrderRepository limitOrderRepository, AccountService accountService, CurrencyPairService currencyPairService, CourseService courseService, ExchangeService exchangeService) {
+    public LimitOrderServiceImpl(LimitOrderRepository limitOrderRepository, CurrencyPairService currencyPairService,
+                                 CourseService courseService, ExchangeService exchangeService) {
         this.limitOrderRepository = limitOrderRepository;
-        this.accountService = accountService;
         this.currencyPairService = currencyPairService;
         this.courseService = courseService;
         this.exchangeService = exchangeService;
