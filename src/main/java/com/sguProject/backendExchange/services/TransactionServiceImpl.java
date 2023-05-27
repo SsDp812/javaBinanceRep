@@ -6,6 +6,8 @@ import com.sguProject.backendExchange.models.Transaction;
 import com.sguProject.backendExchange.repositories.TransactionRepository;
 import com.sguProject.backendExchange.services.interfaces.TransactionService;
 import com.sguProject.backendExchange.util.enums.Operation;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -36,5 +38,10 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public List<Transaction> getAllTransactions(Account account) {
         return transactionRepository.findAllByAccountId(account.getId());
+    }
+
+    @Override
+    public Page<Transaction> getAllTransactions(Account account, Pageable pageable) {
+        return transactionRepository.findAllByAccountId(account.getId(), pageable);
     }
 }
