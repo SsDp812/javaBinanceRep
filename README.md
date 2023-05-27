@@ -1,6 +1,9 @@
 # JavaBinance
 
-JavaBinance is a Spring Boot application for trading on the cryptocurrency exchange, which will allow the user to learn how to make transactions, analyze them and try various strategies without the risk of losing material assets.
+JavaBinance is a Spring Boot application for trading on the 
+cryptocurrency exchange, which will allow the user to learn how to make 
+transactions, analyze them and try various strategies without the risk 
+of losing material assets.
 
 ## Deploy
 - Install Java 17
@@ -11,6 +14,15 @@ JavaBinance is a Spring Boot application for trading on the cryptocurrency excha
 - Run
 
 Server should start on `localhost:8080`
+
+## Deploy with docker
+- Download docker
+- Open console in project root folder
+- Run command `docker-compose up`
+
+Server should start on `localhost:8080`
+
+*But port for postgre database are close, you can open it in docker-compose.yml*
 
 ## Screenshots
 
