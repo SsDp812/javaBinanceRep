@@ -2,8 +2,8 @@ package com.sguProject.backendExchange.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "Account")

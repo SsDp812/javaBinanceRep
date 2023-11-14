@@ -8,7 +8,6 @@ import com.sguProject.backendExchange.util.enums.OrderStatus;
 import java.util.List;
 
 public interface LimitOrderService {
-
     LimitOrder create(Account owner, String baseTicker, String quotedTicker, double quantity, Operation operation, double targetCourse);
 
     List<LimitOrder> getAll(OrderStatus status);

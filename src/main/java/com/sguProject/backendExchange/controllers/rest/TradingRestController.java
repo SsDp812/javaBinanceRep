@@ -1,6 +1,7 @@
 package com.sguProject.backendExchange.controllers.rest;
 
-import com.sguProject.backendExchange.dto.LimitOrderDto;
+import com.sguProject.backendExchange.dto.limitOrder.LimitOrderDto;
+import com.sguProject.backendExchange.dto.limitOrder.LimitOrderRequestDto;
 import com.sguProject.backendExchange.models.LimitOrder;
 import com.sguProject.backendExchange.services.interfaces.AccountService;
 import com.sguProject.backendExchange.services.interfaces.ExchangeService;
@@ -45,17 +46,15 @@ public class TradingRestController {
 
 
     @PutMapping("/limitOrder")
-    public ResponseEntity<HttpStatus> createLimitOrder(@RequestParam(name = "base") String baseTicker,
-                                                    @RequestParam(name = "quoted") String quotedTicker,
-                                                    @RequestParam(name = "quantity") double quantity,
-                                                    @RequestParam(name = "course") double targetCourse,
-                                                    @RequestParam(name = "operation") String operationName) {
-        Operation operation = Operation.valueOf(operationName);
+    public LimitOrderDto createLimitOrder(@RequestBody LimitOrderRequestDto limitOrderRequestDto) {
+        LimitOrder limitOrder = limitOrderService.create(accountService.getAccountCurrentSession(),
+                limitOrderRequestDto.getBaseTicker(),
+                limitOrderRequestDto.getQuotedTicker(),
+                limitOrderRequestDto.getQuantity(),
+                limitOrderRequestDto.getOperation(),
+                limitOrderRequestDto.getTargetCourse());
 
-        limitOrderService.create(accountService.getAccountCurrentSession(),
-                baseTicker, quotedTicker, quantity, operation, targetCourse);
-
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new LimitOrderDto(limitOrder);
     }
 
     @GetMapping("/limitOrder")

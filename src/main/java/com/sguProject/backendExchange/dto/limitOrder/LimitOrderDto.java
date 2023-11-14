@@ -1,4 +1,4 @@
-package com.sguProject.backendExchange.dto;
+package com.sguProject.backendExchange.dto.limitOrder;
 
 import com.sguProject.backendExchange.models.CurrencyPair;
 import com.sguProject.backendExchange.models.LimitOrder;
